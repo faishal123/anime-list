@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import React from "react";
 
 const fontSizeMap = new Map([
   ["xxlarge", "36px"],
@@ -6,7 +7,16 @@ const fontSizeMap = new Map([
   ["medium", "15px"],
 ]);
 
-export const TextBase = styled.span((props) => ({
+interface TextBaseProps {
+  variant: "regular" | "bold";
+  size: "small" | "medium" | "large" | "xxlarge";
+  lineHeight?: number;
+  block: boolean;
+  children: string;
+  color: string;
+}
+
+export const TextBase: React.FC<TextBaseProps> = styled.span((props) => ({
   fontFamily: '"Jaldi", sans-serif',
   color: props?.color,
   fontWeight: props?.variant,

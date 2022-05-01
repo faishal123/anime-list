@@ -1,7 +1,23 @@
 import React from "react";
 import { TextBase } from "./style";
 
-const Text = ({ text, color, variant, size, block, lineHeight = 1 }) => {
+interface TextProps {
+  text: string;
+  color?: string;
+  variant?: "regular" | "bold";
+  size?: "small" | "medium" | "large" | "xxlarge";
+  block?: boolean;
+  lineHeight?: 1 | "omitLineHeight";
+}
+
+const Text: React.FC<TextProps> = ({
+  text,
+  color = "white",
+  variant = "regular",
+  size = "medium",
+  block = false,
+  lineHeight = 1,
+}) => {
   return (
     <TextBase
       color={color}

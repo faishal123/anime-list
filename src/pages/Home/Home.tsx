@@ -19,7 +19,7 @@ import starIconBlue from "src/assets/svg/starIconBlue.svg";
 
 const Home = () => {
   const isMobile = useMobile();
-  const { loading, data, setPage, page } = useGetPopularAnimeList();
+  const { data, setPage, page } = useGetPopularAnimeList();
   console.log(data);
   const animeList = data?.Page?.media || [];
   if (isMobile) {
@@ -82,7 +82,7 @@ const Home = () => {
                     <Text
                       color="white"
                       size="medium"
-                      text={anime?.averageScore / 10}
+                      text={`${anime?.averageScore / 10}`}
                     />
                   </RatingContainer>
                   <GenresContainer>
