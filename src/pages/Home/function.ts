@@ -13,7 +13,9 @@ export const useGetPopularAnimeList = () => {
     {
       onCompleted: () => {
         const backgroundWrapper = document.getElementById("backgroundWrapper");
-        backgroundWrapper.scrollTo({ top: 0, behavior: "smooth" });
+        if (backgroundWrapper) {
+          backgroundWrapper.scrollTo({ top: 0, behavior: "smooth" });
+        }
       },
     }
   );

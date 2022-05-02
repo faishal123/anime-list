@@ -1,8 +1,18 @@
 import styled from "@emotion/styled";
+import React from "react";
 
-export const LineBase = styled.div(() => ({
-  height: "24px",
-  width: "6px",
-  background: "#00C2FF",
-  borderRadius: "3px",
-}));
+interface LineBaseProps {
+  height: string;
+  width: string;
+}
+
+export const LineBase: React.FC<LineBaseProps> = styled.div(
+  ({ height, width }) => ({
+    minHeight: height,
+    maxHeight: height,
+    minWidth: width,
+    maxWidth: width,
+    background: "#00C2FF",
+    borderRadius: "3px",
+  })
+);

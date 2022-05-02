@@ -1,13 +1,9 @@
 import styled from "@emotion/styled";
 
-export const ContentContainer = styled.div`
-  padding: 0 20px;
-`;
-
 export const TitleContainer = styled.div`
   display: flex;
   gap: 9px;
-  margin-bottom: 26px;
+  align-items: center;
 `;
 
 export const AnimeContainer = styled.div`
