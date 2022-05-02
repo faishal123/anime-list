@@ -11,3 +11,9 @@ export const showAnimeFormatAndEpisode = (anime) => {
     anime?.episodes ? ` (${anime?.episodes} Eps)` : ""
   }`;
 };
+
+export const parseHTML = (description, document) => {
+  const descriptionContainer = document.createElement("html");
+  descriptionContainer.innerHTML = description;
+  return descriptionContainer.innerText;
+};

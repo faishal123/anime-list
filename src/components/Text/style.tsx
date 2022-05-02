@@ -4,7 +4,7 @@ import React from "react";
 const fontSizeMap = new Map([
   ["xxlarge", "36px"],
   ["large", "24px"],
-  ["medium", "15px"],
+  ["medium", "16px"],
 ]);
 
 interface TextBaseProps {
@@ -14,6 +14,7 @@ interface TextBaseProps {
   block: boolean;
   children: string;
   color: string;
+  align: "left" | "center" | "justify";
 }
 
 export const TextBase: React.FC<TextBaseProps> = styled.span((props) => ({
@@ -23,4 +24,5 @@ export const TextBase: React.FC<TextBaseProps> = styled.span((props) => ({
   fontSize: fontSizeMap.get(props?.size || "medium"),
   lineHeight: props?.lineHeight,
   display: props?.block ? "block" : "inline",
+  textAlign: props?.align,
 }));

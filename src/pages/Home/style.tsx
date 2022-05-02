@@ -36,12 +36,6 @@ export const GenresContainer = styled.div`
   flex-wrap: wrap;
 `;
 
-export const SingleGenre = styled.div`
-  padding: 0px 10px;
-  background: #3d3d3d;
-  border-radius: 5px;
-`;
-
 export const LoadingContainer = styled.div`
   width: 100%;
   height: 50%;

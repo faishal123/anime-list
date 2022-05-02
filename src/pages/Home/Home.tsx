@@ -10,6 +10,7 @@ import {
   Button,
   LoaderCircle,
   PageWrapper,
+  Genre,
 } from "../../components";
 import {
   TitleContainer,
@@ -18,7 +19,6 @@ import {
   AnimeInfoContainer,
   RatingContainer,
   GenresContainer,
-  SingleGenre,
   LoadingContainer,
   PageButtonContainer,
 } from "./style";
@@ -116,16 +116,7 @@ const Home = () => {
                   </RatingContainer>
                   <GenresContainer>
                     {anime?.genres?.map((genre) => {
-                      return (
-                        <SingleGenre key={genre}>
-                          <Text
-                            lineHeight={"omitLineHeight"}
-                            text={genre}
-                            size="medium"
-                            color="white"
-                          />
-                        </SingleGenre>
-                      );
+                      return <Genre key={genre} genre={genre}></Genre>;
                     })}
                   </GenresContainer>
                 </AnimeInfoContainer>

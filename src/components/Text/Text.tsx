@@ -7,7 +7,8 @@ interface TextProps {
   variant?: "regular" | "bold";
   size?: "small" | "medium" | "large" | "xxlarge";
   block?: boolean;
-  lineHeight?: 1 | "omitLineHeight";
+  align?: "left" | "center" | "justify";
+  lineHeight?: number | "omitLineHeight";
 }
 
 const Text: React.FC<TextProps> = ({
@@ -17,9 +18,11 @@ const Text: React.FC<TextProps> = ({
   size = "medium",
   block = false,
   lineHeight = 1,
+  align = "left",
 }) => {
   return (
     <TextBase
+      align={align}
       color={color}
       lineHeight={lineHeight === "omitLineHeight" ? undefined : lineHeight}
       block={block}

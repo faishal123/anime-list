@@ -1,24 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
 import { useGetSingleAnime } from "./function";
 import { Header } from "src/components";
 import { LoaderCircle } from "src/components";
-import { PageWrapper, BackgroundWrapper, Line } from "src/components";
+import {
+  PageWrapper,
+  BackgroundWrapper,
+  Line,
+  Genre,
+  StarRating,
+} from "src/components";
 import { Text } from "src/components";
-import { BannerContainer, StarRatingContainer } from "./style";
+import { BannerContainer, StarRatingContainer, GenresContainer } from "./style";
 import { showAnimeFormatAndEpisode } from "src/functions/string";
 import Image from "next/image";
+import { parseHTML } from "src/functions/string";
 import { TitleContainer } from "../Home/style";
-import { StarRating } from "src/components";
 
 const AnimeDetail = () => {
-  const { loading, data } = useGetSingleAnime();
+  const [description, setDescription] = useState("");
+  const { loading, data } = useGetSingleAnime({
+    onCompleted: (d) => {
+      console.log(d);
+      const descriptionParsed = parseHTML(d?.Media?.description, document);
+      setDescription(descriptionParsed);
+    },
+  });
+
   const animeObject = data?.Media;
   const animeTitle = animeObject?.title;
   const largeCover = animeObject?.coverImage?.extraLarge;
 
   const shownAnimeTitle =
     animeTitle?.english || animeTitle?.romaji || animeTitle?.native;
-  console.log(data);
+  const genres = animeObject?.genres;
   return (
     <BackgroundWrapper>
       {loading ? (
@@ -28,7 +42,7 @@ const AnimeDetail = () => {
           <>
             <Header />
             <PageWrapper>
-              <div className="margin--xxlarge-b">
+              <div className="margin--large-b">
                 <TitleContainer className="margin--small-b">
                   <Line height="34px" />
                   <Text variant="bold" text={shownAnimeTitle} size="xxlarge" />
@@ -43,7 +57,7 @@ const AnimeDetail = () => {
                   </StarRatingContainer>
                 </div>
               </div>
-              <BannerContainer>
+              <BannerContainer className="margin--xlarge-b">
                 <Image
                   src={largeCover}
                   layout="fill"
@@ -51,6 +65,20 @@ const AnimeDetail = () => {
                   objectFit="cover"
                 />
               </BannerContainer>
+              <GenresContainer className="margin--large-b">
+                {genres.map((genre) => {
+                  return <Genre key={genre} genre={genre} />;
+                })}
+              </GenresContainer>
+              <div>
+                <Text
+                  block
+                  align="justify"
+                  lineHeight={1.5}
+                  text={description}
+                  size="medium"
+                />
+              </div>
             </PageWrapper>
           </>
         )

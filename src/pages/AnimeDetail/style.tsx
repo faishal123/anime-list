@@ -14,3 +14,11 @@ export const StarRatingContainer = styled.div`
   display: flex;
   gap: 23px;
 `;
+
+export const GenresContainer = styled.div`
+  display: inline-flex;
+  gap: 5px;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+`;

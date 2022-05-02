@@ -7,6 +7,7 @@ import LoaderCircle from "./LoaderCircle";
 import BackgroundWrapper from "./BackgroundWrapper";
 import PageWrapper from "./PageWrapper";
 import StarRating from "./StarRating";
+import Genre from "./Genre";
 
 export {
   Text,
@@ -18,4 +19,5 @@ export {
   BackgroundWrapper,
   PageWrapper,
   StarRating,
+  Genre,
 };
