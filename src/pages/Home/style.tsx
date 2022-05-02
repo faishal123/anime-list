@@ -45,3 +45,18 @@ export const SingleGenre = styled.div`
   background: #3d3d3d;
   border-radius: 5px;
 `;
+
+export const LoadingContainer = styled.div`
+  width: 100%;
+  height: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const PageButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: 20px;
+`;

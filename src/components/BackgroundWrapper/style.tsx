@@ -6,4 +6,5 @@ export const Background = styled.div`
   height: 100vh;
   width: 100vw;
   overflow: auto;
+  padding-bottom: 40px;
 `;
