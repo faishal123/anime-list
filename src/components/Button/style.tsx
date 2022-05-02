@@ -4,7 +4,7 @@ import { MouseEvent } from "react";
 const backgroundMap = new Map([
   ["primary", "#00C2FF"],
   ["grey", "#efefef"],
-  ["white", "white"],
+  ["white", "#efefef"],
   ["dark", "#3d3d3d"],
 ]);
 
@@ -38,7 +38,6 @@ interface ButtonBaseProps {
 
 export const ButtonBase: React.FC<ButtonBaseProps> = styled.button(
   ({ variant, size }) => {
-    console.log(size);
     return {
       fontSize: `${fontSizeMap.get(size)}px`,
       fontFamily: '"Jaldi", sans-serif',

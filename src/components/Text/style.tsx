@@ -4,12 +4,13 @@ import React from "react";
 const fontSizeMap = new Map([
   ["xxlarge", "36px"],
   ["large", "24px"],
+  ["xmedium", "20px"],
   ["medium", "16px"],
 ]);
 
 interface TextBaseProps {
   variant: "regular" | "bold";
-  size: "small" | "medium" | "large" | "xxlarge";
+  size: "small" | "medium" | "large" | "xxlarge" | "xmedium";
   lineHeight?: number;
   block: boolean;
   children: string;

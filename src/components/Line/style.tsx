@@ -4,15 +4,16 @@ import React from "react";
 interface LineBaseProps {
   height: string;
   width: string;
+  color: string;
 }
 
 export const LineBase: React.FC<LineBaseProps> = styled.div(
-  ({ height, width }) => ({
+  ({ height, width, color }) => ({
     minHeight: height,
     maxHeight: height,
     minWidth: width,
     maxWidth: width,
-    background: "#00C2FF",
+    background: color,
     borderRadius: "3px",
   })
 );

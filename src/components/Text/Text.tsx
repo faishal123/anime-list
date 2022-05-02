@@ -5,7 +5,7 @@ interface TextProps {
   text: string;
   color?: string;
   variant?: "regular" | "bold";
-  size?: "small" | "medium" | "large" | "xxlarge";
+  size?: "small" | "medium" | "large" | "xxlarge" | "xmedium";
   block?: boolean;
   align?: "left" | "center" | "justify";
   lineHeight?: number | "omitLineHeight";
@@ -13,7 +13,7 @@ interface TextProps {
 
 const Text: React.FC<TextProps> = ({
   text,
-  color = "white",
+  color = "#efefef",
   variant = "regular",
   size = "medium",
   block = false,

@@ -8,6 +8,10 @@ import BackgroundWrapper from "./BackgroundWrapper";
 import PageWrapper from "./PageWrapper";
 import StarRating from "./StarRating";
 import Genre from "./Genre";
+import Modal from "./Modal";
+import Input from "./Input";
+import Checkmark from "./Checkmark";
+import Notification from "./Notification";
 
 export {
   Text,
@@ -20,4 +24,8 @@ export {
   PageWrapper,
   StarRating,
   Genre,
+  Modal,
+  Input,
+  Checkmark,
+  Notification,
 };

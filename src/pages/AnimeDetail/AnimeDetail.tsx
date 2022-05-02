@@ -10,15 +10,31 @@ import {
   StarRating,
   Button,
 } from "src/components";
-import { Text } from "src/components";
+import CollectionModal from "./CollectionModal";
+import { Text, Notification } from "src/components";
 import { BannerContainer, StarRatingContainer, GenresContainer } from "./style";
 import { showAnimeFormatAndEpisode } from "src/functions/string";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { parseHTML } from "src/functions/string";
 import { TitleContainer, LoadingContainer } from "../Home/style";
 import Link from "next/link";
 
+interface NotificationStateType {
+  type: "success" | "error";
+  message?: string;
+}
+
 const AnimeDetail = () => {
+  const router = useRouter();
+  const animeId = router?.query?.id;
+  const isRouterReady = router?.isReady;
+  const [renderNotification, setRenderNotification] =
+    useState<NotificationStateType>({
+      type: "success",
+      message: "",
+    });
+  const [renderCollectionModal, setRenderCollectionModal] = useState(false);
   const [description, setDescription] = useState("");
   const { loading, data } = useGetSingleAnime({
     onCompleted: (d) => {
@@ -33,14 +49,27 @@ const AnimeDetail = () => {
   const trailerObject = animeObject?.trailer;
   const shouldShowTrailerButton = trailerObject?.site === "youtube";
 
-  console.log(animeObject?.trailer);
-
   const shownAnimeTitle =
     animeTitle?.english || animeTitle?.romaji || animeTitle?.native;
   const genres = animeObject?.genres;
   return (
     <BackgroundWrapper>
       <>
+        <Notification
+          onClose={() => {
+            setRenderNotification((prev) => ({ ...prev, message: "" }));
+          }}
+          type={renderNotification?.type}
+          message={renderNotification?.message}
+        />
+        <CollectionModal
+          setRenderNotification={setRenderNotification}
+          animeId={animeId}
+          show={renderCollectionModal}
+          onLeave={() => {
+            setRenderCollectionModal(false);
+          }}
+        />
         <Header />
         {loading ? (
           <LoadingContainer>
@@ -100,7 +129,14 @@ const AnimeDetail = () => {
                 </div>
               )}
               <div className="margin--large-t">
-                <Button text="Add to Collection" />
+                <Button
+                  text="Add to Collection"
+                  onClick={() => {
+                    if (isRouterReady) {
+                      setRenderCollectionModal(true);
+                    }
+                  }}
+                />
               </div>
             </PageWrapper>
           )
