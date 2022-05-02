@@ -31,9 +31,9 @@ export const ContainerNotification: React.FC<ContainerNotificationProps> =
       right: "50%",
       marginRight: "-200px",
       background: type === "success" ? "#00c2ff" : "red",
-      "@media (min-width: 600px)": {
-        width: "95vw",
-        marginRight: "-42.5vw",
+      "@media (max-width: 600px)": {
+        width: "90vw",
+        marginRight: "-45vw",
       },
     };
   });

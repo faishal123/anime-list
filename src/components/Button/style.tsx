@@ -54,6 +54,7 @@ export const ButtonBase: React.FC<ButtonBaseProps> = styled.button(
       background: backgroundMap.get(variant),
       letterSpacing: "1px",
       width: "100%",
+      overflow: "hidden",
     };
   }
 );

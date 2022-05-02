@@ -12,6 +12,7 @@ import Modal from "./Modal";
 import Input from "./Input";
 import Checkmark from "./Checkmark";
 import Notification from "./Notification";
+import Sidebar from "./Sidebar";
 
 export {
   Text,
@@ -28,4 +29,5 @@ export {
   Input,
   Checkmark,
   Notification,
+  Sidebar,
 };
