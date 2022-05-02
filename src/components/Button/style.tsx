@@ -9,17 +9,17 @@ const backgroundMap = new Map([
 ]);
 
 const heightSizeMap = new Map([
-  ["small", 35],
-  ["medium", 45],
-  ["large", 55],
-  ["xlarge", 65],
+  ["small", 40],
+  ["medium", 50],
+  ["large", 60],
+  ["xlarge", 70],
 ]);
 
 const fontSizeMap = new Map([
-  ["small", 20],
-  ["medium", 25],
-  ["large", 30],
-  ["xlarge", 35],
+  ["small", 18],
+  ["medium", 23],
+  ["large", 28],
+  ["xlarge", 33],
 ]);
 
 const paddingMap = new Map([
@@ -38,6 +38,7 @@ interface ButtonBaseProps {
 
 export const ButtonBase: React.FC<ButtonBaseProps> = styled.button(
   ({ variant, size }) => {
+    console.log(size);
     return {
       fontSize: `${fontSizeMap.get(size)}px`,
       fontFamily: '"Jaldi", sans-serif',
@@ -53,6 +54,7 @@ export const ButtonBase: React.FC<ButtonBaseProps> = styled.button(
       justifyContent: "center",
       background: backgroundMap.get(variant),
       letterSpacing: "1px",
+      width: "100%",
     };
   }
 );

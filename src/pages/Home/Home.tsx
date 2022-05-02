@@ -125,21 +125,25 @@ const Home = () => {
           })}
           <PageButtonContainer>
             {currentPage > 1 ? (
-              <Button
-                onClick={() => {
-                  router.push(`/?page=${Number(currentPage) - 1}`);
-                }}
-                text="Prev"
-              />
+              <div>
+                <Button
+                  onClick={() => {
+                    router.push(`/?page=${Number(currentPage) - 1}`);
+                  }}
+                  text="Prev"
+                />
+              </div>
             ) : (
               <div></div>
             )}
-            <Button
-              onClick={() => {
-                router.push(`/?page=${Number(currentPage) + 1}`);
-              }}
-              text="Next"
-            />
+            <div>
+              <Button
+                onClick={() => {
+                  router.push(`/?page=${Number(currentPage) + 1}`);
+                }}
+                text="Next"
+              />
+            </div>
           </PageButtonContainer>
         </PageWrapper>
       )}

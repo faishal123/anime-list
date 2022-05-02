@@ -8,19 +8,20 @@ import {
   Line,
   Genre,
   StarRating,
+  Button,
 } from "src/components";
 import { Text } from "src/components";
 import { BannerContainer, StarRatingContainer, GenresContainer } from "./style";
 import { showAnimeFormatAndEpisode } from "src/functions/string";
 import Image from "next/image";
 import { parseHTML } from "src/functions/string";
-import { TitleContainer } from "../Home/style";
+import { TitleContainer, LoadingContainer } from "../Home/style";
+import Link from "next/link";
 
 const AnimeDetail = () => {
   const [description, setDescription] = useState("");
   const { loading, data } = useGetSingleAnime({
     onCompleted: (d) => {
-      console.log(d);
       const descriptionParsed = parseHTML(d?.Media?.description, document);
       setDescription(descriptionParsed);
     },
@@ -29,18 +30,24 @@ const AnimeDetail = () => {
   const animeObject = data?.Media;
   const animeTitle = animeObject?.title;
   const largeCover = animeObject?.coverImage?.extraLarge;
+  const trailerObject = animeObject?.trailer;
+  const shouldShowTrailerButton = trailerObject?.site === "youtube";
+
+  console.log(animeObject?.trailer);
 
   const shownAnimeTitle =
     animeTitle?.english || animeTitle?.romaji || animeTitle?.native;
   const genres = animeObject?.genres;
   return (
     <BackgroundWrapper>
-      {loading ? (
-        <LoaderCircle />
-      ) : (
-        !!data && (
-          <>
-            <Header />
+      <>
+        <Header />
+        {loading ? (
+          <LoadingContainer>
+            <LoaderCircle />
+          </LoadingContainer>
+        ) : (
+          !!data && (
             <PageWrapper>
               <div className="margin--large-b">
                 <TitleContainer className="margin--small-b">
@@ -59,6 +66,7 @@ const AnimeDetail = () => {
               </div>
               <BannerContainer className="margin--xlarge-b">
                 <Image
+                  priority
                   src={largeCover}
                   layout="fill"
                   alt={`${shownAnimeTitle}-cover`}
@@ -79,10 +87,25 @@ const AnimeDetail = () => {
                   size="medium"
                 />
               </div>
+              {shouldShowTrailerButton && (
+                <div className="margin--large-t">
+                  <Link
+                    passHref
+                    href={`https://www.youtube.com/watch?v=${trailerObject?.id}`}
+                  >
+                    <a target="_blank">
+                      <Button variant="dark" text="Watch Trailer" />
+                    </a>
+                  </Link>
+                </div>
+              )}
+              <div className="margin--large-t">
+                <Button text="Add to Collection" />
+              </div>
             </PageWrapper>
-          </>
-        )
-      )}
+          )
+        )}
+      </>
     </BackgroundWrapper>
   );
 };
