@@ -27,8 +27,19 @@ export const CloseArea = styled.div(() => {
 
 export const SidebarMain: React.FC<SidebarMainProps> = styled.div(
   ({ show }) => {
+    const screenWidth = window.innerWidth;
+    const defineWidth = () => {
+      if (show && screenWidth > 500) {
+        return "300px";
+      }
+      if (show) {
+        return "60vw";
+      }
+      return "0px";
+    };
     return {
-      width: show ? "60vw" : "0px",
+      width: defineWidth(),
+      maxWidth: "300px",
       height: "100vh",
       transition: "0.3s",
       background: "#202020",

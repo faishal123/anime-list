@@ -7,6 +7,9 @@ export const BannerContainer = styled.div(() => {
     position: "relative",
     borderRadius: "20px",
     overflow: "hidden",
+    "@media (max-width: 1024px) and (min-width: 480px)": {
+      maxWidth: "440px",
+    },
   };
 });
 

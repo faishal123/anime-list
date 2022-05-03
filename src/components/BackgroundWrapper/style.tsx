@@ -6,5 +6,8 @@ export const Background = styled.div`
   height: 100vh;
   width: 100vw;
   overflow: auto;
-  padding-bottom: 80px;
+  padding-bottom: 10vh;
+  @media (max-width: 1024px) and (min-width: 480px) {
+    padding: 0 calc((100vw - 480px) / 2) 10vh calc((100vw - 480px) / 2);
+  }
 `;

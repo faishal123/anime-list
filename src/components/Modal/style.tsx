@@ -33,5 +33,8 @@ export const ModalMain = styled.div(() => {
     maxHeight: "80vh",
     padding: "20px",
     width: "95vw",
+    "@media (max-width: 1024px) and (min-width: 480px)": {
+      maxWidth: "440px",
+    },
   };
 });
