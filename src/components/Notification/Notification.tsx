@@ -16,7 +16,11 @@ interface NotificationProps {
   onClose?: () => void;
 }
 
-function useHideNotif(action: () => void, delay: number, message: string) {
+function useHideNotif(
+  action: () => void,
+  delay: number,
+  message?: string | null
+) {
   useEffect(() => {
     const handler = setTimeout(() => {
       if (!!message) {

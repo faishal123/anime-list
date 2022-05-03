@@ -6,7 +6,13 @@ import {
   collectionKeyAlreadyExist,
 } from "src/functions/localStorage";
 
-const NewCollectionForm = ({ setContent }) => {
+interface NewCollectionFormProps {
+  setContent: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const NewCollectionForm: React.FC<NewCollectionFormProps> = ({
+  setContent,
+}) => {
   const [inputValue, setInputValue] = useState("");
   const [inputError, setInputError] = useState("");
 

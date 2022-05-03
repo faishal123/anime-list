@@ -1,36 +1,12 @@
-export interface TitleType {
-  english: string | null;
-  romaji: string | null;
-  native: string | null;
-}
+import { TitleType } from "../SingleAnime/interface";
 
-export interface CharacterType {
-  nodes: {
-    id: number | null;
-    name: {
-      first: string | null;
-      middle: string | null;
-      last: string | null;
-      full: string | null;
-      native: string | null;
-      userPreferred: string | null;
-    } | null;
-    image: {
-      large: string | null;
-      medium: string | null;
-    } | null;
-    description: string | null;
-  };
-}
-
-export interface SingleMediaType {
+export interface SingleMedia {
   title: TitleType | null;
   id: number | null;
   isAdult: boolean | null;
   genres: string[] | null;
   bannerImage: string | null;
   popularity: number | null;
-  description: string | null;
   episodes: number | null;
   status:
     | "FINISHED"
@@ -55,7 +31,6 @@ export interface SingleMediaType {
   type: "ANIME" | "MANGA" | null;
   meanScore: number | null;
   averageScore: number | null;
-  characters: CharacterType[] | null;
   coverImage: {
     extraLarge: string | null;
     large: string | null;
@@ -69,6 +44,15 @@ export interface SingleMediaType {
   } | null;
 }
 
-export interface SingleAnimeType {
-  Media: SingleMediaType;
+export interface PagesType {
+  Page: {
+    media: SingleMedia[];
+    pageInfo: {
+      total: number;
+      perPage: number;
+      currentPage: number;
+      lastPage: number;
+      hasNextPage: boolean;
+    };
+  };
 }

@@ -2,7 +2,11 @@ import React from "react";
 import Text from "../Text";
 import { SingleGenre } from "./style";
 
-const Genre = ({ genre }) => {
+interface Genreprops {
+  genre: string;
+}
+
+const Genre: React.FC<Genreprops> = ({ genre }) => {
   return (
     <SingleGenre key={genre}>
       <Text

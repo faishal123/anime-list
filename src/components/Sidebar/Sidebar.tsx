@@ -5,7 +5,12 @@ import Line from "../Line";
 import Button from "../Button";
 import Link from "next/link";
 
-const Sidebar = ({ show, onClose }) => {
+interface SidebarProps {
+  show: boolean;
+  onClose: () => void;
+}
+
+const Sidebar: React.FC<SidebarProps> = ({ show, onClose }) => {
   return (
     <SidebarContainer show={show}>
       <CloseArea onClick={onClose} />

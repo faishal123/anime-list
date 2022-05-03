@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import React from "react";
 
-const defineBorderColor = (isSelected, alreadyIn) => {
+const defineBorderColor = (isSelected: boolean, alreadyIn: boolean): string => {
   if (alreadyIn) {
     return "#00C2FF";
   }

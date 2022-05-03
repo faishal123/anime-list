@@ -4,19 +4,31 @@ import {
   getCollectionList,
   addAnimeToCollections,
 } from "src/functions/localStorage";
+import { NotificationStateType } from "src/constant/interface";
 import SingleCollection from "./SingleCollection";
 
-const CollectionList = ({
+interface CollectionListProps {
+  setContent: React.Dispatch<React.SetStateAction<string>>;
+  animeId: string | number;
+  onLeave: () => void;
+  setRenderNotification: React.Dispatch<
+    React.SetStateAction<NotificationStateType>
+  >;
+}
+
+const CollectionList: React.FC<CollectionListProps> = ({
   setContent,
   animeId,
   onLeave,
   setRenderNotification,
 }) => {
-  const [selectedCollections, setSelectedCollections] = useState([]);
+  const [selectedCollections, setSelectedCollections] = useState<string[]>([]);
   const alreadySelectCollection = selectedCollections?.length > 0;
   const collectionLists = getCollectionList();
   const collectionKeys = Object.keys(collectionLists);
-  const shownCollections = collectionKeys?.reduce((a, c) => {
+  const shownCollections = collectionKeys?.reduce<
+    { name: string; alreadyIn: boolean }[]
+  >((a, c) => {
     if (collectionLists?.[c]?.includes(Number(animeId))) {
       return [...a, { name: c, alreadyIn: true }];
     }
@@ -41,7 +53,7 @@ const CollectionList = ({
       </div>
       {haveCollection ? (
         shownCollections?.map((c) => {
-          const isSelected = selectedCollections?.includes(c?.name);
+          const isSelected: boolean = selectedCollections?.includes(c?.name);
           return (
             <SingleCollection
               onClick={() => {

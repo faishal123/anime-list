@@ -36,7 +36,7 @@ const SingleCollection: React.FC<SingleCollectionProps> = ({
           />
         )}
       </div>
-      {isSelected && !alreadyIn && <Checkmark />}
+      {isSelected && !alreadyIn ? <Checkmark /> : <div></div>}
     </SingleCollectionContainer>
   );
 };

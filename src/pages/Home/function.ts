@@ -3,8 +3,12 @@ import { useEffect } from "react";
 import { useLazyQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { PopularAnimeList } from "../../graphql/query";
+import { PagesType } from "src/graphql/query/PopularAnimeList/interface";
 
-export const useGetPopularAnimeList = () => {
+export const useGetPopularAnimeList = (): {
+  loading: boolean;
+  data: PagesType;
+} => {
   const router = useRouter();
   const isRouterReady = router?.isReady;
   const currentPage = Number(router?.query?.page);

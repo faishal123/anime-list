@@ -6,7 +6,11 @@ const LogoContainer = styled.div`
   cursor: pointer;
 `;
 
-const Logo = ({ onClick }) => {
+interface LogoProps {
+  onClick: () => void;
+}
+
+const Logo: React.FC<LogoProps> = ({ onClick }) => {
   return (
     <LogoContainer onClick={onClick}>
       <Text text="ANIM" variant="bold" size="xxlarge" color="#efefef" />

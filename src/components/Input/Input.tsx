@@ -1,7 +1,7 @@
-import React from "react";
+import React, { InputHTMLAttributes } from "react";
 import { InputBase } from "./style";
 
-const Input = (props) => {
+const Input: React.FC<InputHTMLAttributes<HTMLInputElement>> = (props) => {
   return <InputBase {...props} />;
 };
 

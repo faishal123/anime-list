@@ -2,23 +2,36 @@ import React, { useState } from "react";
 import NewCollectionForm from "./NewCollectionForm";
 import CollectionList from "./CollectionList";
 import { Modal } from "src/components";
+import { NotificationStateType } from "src/constant/interface";
 
-const contentMap = new Map([
-  ["list", CollectionList],
-  ["form", NewCollectionForm],
-]);
+interface CollectionModalProps {
+  show: boolean;
+  onLeave: () => void;
+  animeId: string | number;
+  setRenderNotification: React.Dispatch<
+    React.SetStateAction<NotificationStateType>
+  >;
+}
 
-const CollectionModal = ({ show, onLeave, animeId, setRenderNotification }) => {
+const CollectionModal: React.FC<CollectionModalProps> = ({
+  show,
+  onLeave,
+  animeId,
+  setRenderNotification,
+}) => {
   const [content, setContent] = useState("list");
-  const ContentToRender = contentMap.get(content);
   return (
     <Modal onLeave={onLeave} show={show}>
-      <ContentToRender
-        animeId={animeId}
-        onLeave={onLeave}
-        setContent={setContent}
-        setRenderNotification={setRenderNotification}
-      />
+      {content === "list" ? (
+        <CollectionList
+          animeId={animeId}
+          onLeave={onLeave}
+          setContent={setContent}
+          setRenderNotification={setRenderNotification}
+        />
+      ) : (
+        <NewCollectionForm setContent={setContent} />
+      )}
     </Modal>
   );
 };

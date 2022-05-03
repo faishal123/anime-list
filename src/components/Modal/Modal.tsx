@@ -2,7 +2,17 @@ import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { ModalContainer, ModalMain } from "./style";
 
-const Modal = ({ show, children, onLeave = () => null }) => {
+interface ModalProps {
+  show: boolean;
+  children: JSX.Element | JSX.Element[];
+  onLeave: () => void;
+}
+
+const Modal: React.FC<ModalProps> = ({
+  show,
+  children,
+  onLeave = () => null,
+}) => {
   const [rendered, setRendered] = useState(false);
   useEffect(() => {
     setRendered(true);

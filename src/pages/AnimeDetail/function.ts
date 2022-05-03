@@ -16,6 +16,7 @@ export const useGetSingleAnime = ({
   const isRouterReady = router?.isReady;
   const animeId = router?.query?.id;
   const [getSingleAnime, { loading, data }] = useLazyQuery(SingleAnime, {
+    fetchPolicy: "no-cache",
     onCompleted,
   });
 

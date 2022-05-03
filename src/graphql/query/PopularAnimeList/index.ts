@@ -8,6 +8,7 @@ const PopularAnimeList = gql`
     $countryOfOrigin: CountryCode
     $search: String
     $type: MediaType
+    $idIn: [Int]
   ) {
     Page(page: $page, perPage: $perPage) {
       pageInfo {
@@ -22,6 +23,7 @@ const PopularAnimeList = gql`
         countryOfOrigin: $countryOfOrigin
         search: $search
         type: $type
+        id_in: $idIn
       ) {
         id
         title {

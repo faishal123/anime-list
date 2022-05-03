@@ -19,15 +19,12 @@ import { useRouter } from "next/router";
 import { parseHTML } from "src/functions/string";
 import { TitleContainer, LoadingContainer } from "../Home/style";
 import Link from "next/link";
-
-interface NotificationStateType {
-  type: "success" | "error";
-  message?: string;
-}
+import placeholderImage from "src/assets/svg/placeholder.svg";
+import { NotificationStateType } from "src/constant/interface";
 
 const AnimeDetail = () => {
   const router = useRouter();
-  const animeId = router?.query?.id;
+  const animeId = router?.query?.id as string;
   const isRouterReady = router?.isReady;
   const [renderNotification, setRenderNotification] =
     useState<NotificationStateType>({
@@ -52,6 +49,11 @@ const AnimeDetail = () => {
   const shownAnimeTitle =
     animeTitle?.english || animeTitle?.romaji || animeTitle?.native;
   const genres = animeObject?.genres;
+
+  if (!animeId && isRouterReady) {
+    router.push("/?page=1");
+  }
+
   return (
     <BackgroundWrapper>
       <>
@@ -75,71 +77,77 @@ const AnimeDetail = () => {
           <LoadingContainer>
             <LoaderCircle />
           </LoadingContainer>
-        ) : (
-          !!data && (
-            <PageWrapper>
-              <div className="margin--large-b">
-                <TitleContainer className="margin--small-b">
-                  <Line height="34px" />
-                  <Text variant="bold" text={shownAnimeTitle} size="xxlarge" />
-                </TitleContainer>
-                <div className="margin--large-l">
-                  <StarRatingContainer>
-                    <Text
-                      size="medium"
-                      text={showAnimeFormatAndEpisode(animeObject)}
-                    />
-                    <StarRating anime={animeObject} />
-                  </StarRatingContainer>
-                </div>
-              </div>
-              <BannerContainer className="margin--xlarge-b">
-                <Image
-                  priority
-                  src={largeCover}
-                  layout="fill"
-                  alt={`${shownAnimeTitle}-cover`}
-                  objectFit="cover"
-                />
-              </BannerContainer>
-              <GenresContainer className="margin--large-b">
-                {genres.map((genre) => {
-                  return <Genre key={genre} genre={genre} />;
-                })}
-              </GenresContainer>
-              <div>
+        ) : !!data && !!animeObject ? (
+          <PageWrapper>
+            <div className="margin--large-b">
+              <TitleContainer className="margin--small-b">
+                <Line height="34px" />
                 <Text
-                  block
-                  align="justify"
-                  lineHeight={1.5}
-                  text={description}
-                  size="medium"
+                  variant="bold"
+                  text={shownAnimeTitle || ""}
+                  size="xxlarge"
                 />
+              </TitleContainer>
+              <div className="margin--large-l">
+                <StarRatingContainer>
+                  <Text
+                    size="medium"
+                    text={showAnimeFormatAndEpisode(animeObject)}
+                  />
+                  <StarRating anime={animeObject} />
+                </StarRatingContainer>
               </div>
-              {shouldShowTrailerButton && (
-                <div className="margin--large-t">
-                  <Link
-                    passHref
-                    href={`https://www.youtube.com/watch?v=${trailerObject?.id}`}
-                  >
-                    <a target="_blank">
-                      <Button variant="dark" text="Watch Trailer" />
-                    </a>
-                  </Link>
-                </div>
-              )}
+            </div>
+            <BannerContainer className="margin--xlarge-b">
+              <Image
+                priority
+                src={largeCover || placeholderImage}
+                layout="fill"
+                alt={`${shownAnimeTitle}-cover`}
+                objectFit="cover"
+              />
+            </BannerContainer>
+            <GenresContainer className="margin--large-b">
+              {(genres || []).map((genre) => {
+                return <Genre key={genre} genre={genre} />;
+              })}
+            </GenresContainer>
+            <div>
+              <Text
+                block
+                align="justify"
+                lineHeight={1.5}
+                text={description}
+                size="medium"
+              />
+            </div>
+            {shouldShowTrailerButton ? (
               <div className="margin--large-t">
-                <Button
-                  text="Add to Collection"
-                  onClick={() => {
-                    if (isRouterReady) {
-                      setRenderCollectionModal(true);
-                    }
-                  }}
-                />
+                <Link
+                  passHref
+                  href={`https://www.youtube.com/watch?v=${trailerObject?.id}`}
+                >
+                  <a target="_blank">
+                    <Button variant="dark" text="Watch Trailer" />
+                  </a>
+                </Link>
               </div>
-            </PageWrapper>
-          )
+            ) : (
+              <div></div>
+            )}
+            <div className="margin--large-t">
+              <Button
+                text="Add to Collection"
+                onClick={() => {
+                  if (isRouterReady) {
+                    setRenderCollectionModal(true);
+                  }
+                }}
+              />
+            </div>
+          </PageWrapper>
+        ) : (
+          <div></div>
         )}
       </>
     </BackgroundWrapper>
