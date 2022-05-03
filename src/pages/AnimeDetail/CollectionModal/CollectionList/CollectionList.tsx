@@ -52,25 +52,30 @@ const CollectionList: React.FC<CollectionListProps> = ({
         <Line width="100%" height="1px" color="#505050" />
       </div>
       {haveCollection ? (
-        shownCollections?.map((c) => {
-          const isSelected: boolean = selectedCollections?.includes(c?.name);
-          return (
-            <SingleCollection
-              onClick={() => {
-                setSelectedCollections((prev) => {
-                  if (prev?.includes(c?.name)) {
-                    return prev?.filter((p) => p !== c?.name);
-                  }
-                  return [...prev, c?.name];
-                });
-              }}
-              key={c?.name}
-              name={c?.name}
-              alreadyIn={c?.alreadyIn}
-              isSelected={isSelected}
-            />
-          );
-        })
+        <>
+          <div className="margin--medium-b">
+            <Text text="Choose Collection to Add Anime into" size="xmedium" />
+          </div>
+          {shownCollections?.map((c) => {
+            const isSelected: boolean = selectedCollections?.includes(c?.name);
+            return (
+              <SingleCollection
+                onClick={() => {
+                  setSelectedCollections((prev) => {
+                    if (prev?.includes(c?.name)) {
+                      return prev?.filter((p) => p !== c?.name);
+                    }
+                    return [...prev, c?.name];
+                  });
+                }}
+                key={c?.name}
+                name={c?.name}
+                alreadyIn={c?.alreadyIn}
+                isSelected={isSelected}
+              />
+            );
+          })}
+        </>
       ) : (
         <Text block text="No Collection Found" size="xmedium" />
       )}

@@ -1,7 +1,7 @@
 import React from "react";
 import { CheckmarkElement } from "./style";
 
-const Checkmark = () => {
+const Checkmark: React.FC = () => {
   return <CheckmarkElement></CheckmarkElement>;
 };
 

@@ -7,7 +7,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import Sidebar from "../Sidebar";
 
-const Header = () => {
+const Header: React.FC = () => {
   const [showSidebar, setShowSidebar] = useState(false);
   const router = useRouter();
   return (

@@ -11,6 +11,9 @@ import { CollectionsType } from "src/constant/interface";
 import { LoaderCircle } from "src/components";
 import Image from "next/image";
 import placeholderImage from "src/assets/svg/placeholder.svg";
+import { NotificationStateType } from "src/constant/interface";
+import Link from "next/link";
+import ActionButton from "./ActionButton";
 import { SingleMedia } from "src/graphql/query/PopularAnimeList/interface";
 
 interface CollectionProps {
@@ -20,6 +23,10 @@ interface CollectionProps {
   fullCollection: CollectionsType;
   loading: boolean;
   animes: SingleMedia[];
+  setRenderNotification: React.Dispatch<
+    React.SetStateAction<NotificationStateType>
+  >;
+  getCollectionFromLocalStorage: () => void;
 }
 
 const Collection: React.FC<CollectionProps> = ({
@@ -29,6 +36,8 @@ const Collection: React.FC<CollectionProps> = ({
   fullCollection,
   animes = [],
   loading,
+  setRenderNotification,
+  getCollectionFromLocalStorage,
 }) => {
   const animeIdsInCollection = fullCollection?.[name];
   const isEmptyCollection = animeIdsInCollection?.length <= 0;
@@ -51,28 +60,43 @@ const Collection: React.FC<CollectionProps> = ({
           <AnimesContainer>
             {animeDatasInThisCollection?.map((a) => {
               return (
-                <SingleAnimeItem key={a?.id}>
-                  <AnimeBannerContainer>
-                    <Image
-                      alt={`${a?.title?.english}-banner`}
-                      height={138}
-                      width={100}
-                      src={a?.coverImage?.medium || placeholderImage}
-                    />
-                  </AnimeBannerContainer>
-                  <Text
-                    text={
-                      a?.title?.english ||
-                      a?.title?.romaji ||
-                      a?.title?.native ||
-                      ""
-                    }
-                  />
-                </SingleAnimeItem>
+                <Link key={a?.id} passHref href={`/anime/${a?.id}`}>
+                  <a>
+                    <SingleAnimeItem>
+                      <AnimeBannerContainer>
+                        <Image
+                          alt={`${a?.title?.english}-banner`}
+                          height={138}
+                          width={100}
+                          src={a?.coverImage?.medium || placeholderImage}
+                        />
+                      </AnimeBannerContainer>
+                      <Text
+                        text={
+                          a?.title?.english ||
+                          a?.title?.romaji ||
+                          a?.title?.native ||
+                          ""
+                        }
+                      />
+                    </SingleAnimeItem>
+                  </a>
+                </Link>
               );
             })}
           </AnimesContainer>
         </OverflowContainer>
+      )}
+      {!loading ? (
+        <div className="margin--medium-t">
+          <ActionButton
+            getCollectionFromLocalStorage={getCollectionFromLocalStorage}
+            setRenderNotification={setRenderNotification}
+            collectionName={name}
+          />
+        </div>
+      ) : (
+        <div></div>
       )}
     </CollectionContainer>
   );

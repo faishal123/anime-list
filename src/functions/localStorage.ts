@@ -36,6 +36,14 @@ export const addAnimeToCollections = (
     }
     return { ...a, [c]: [...prevData?.[c]] };
   }, {});
+  setCollectionList(newData);
+};
 
+export const deleteCollection = (key: string) => {
+  const prevData = getCollectionList();
+  const newKeys = Object.keys(prevData)?.filter((k) => k !== key);
+  const newData = newKeys.reduce((a, c) => {
+    return { ...a, [c]: prevData?.[c] };
+  }, {});
   setCollectionList(newData);
 };

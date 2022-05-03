@@ -33,7 +33,7 @@ interface ButtonBaseProps {
   variant: "primary" | "grey" | "white" | "dark";
   size: "small" | "medium" | "large" | "xlarge";
   onClick: (() => void) | ((e: MouseEvent<HTMLElement>) => void);
-  children: string;
+  children: string | JSX.Element | JSX.Element[];
 }
 
 export const ButtonBase: React.FC<ButtonBaseProps> = styled.button(

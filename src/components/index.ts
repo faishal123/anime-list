@@ -13,6 +13,7 @@ import Input from "./Input";
 import Checkmark from "./Checkmark";
 import Notification from "./Notification";
 import Sidebar from "./Sidebar";
+import Collapse from "./Collapse";
 
 export {
   Text,
@@ -30,4 +31,5 @@ export {
   Checkmark,
   Notification,
   Sidebar,
+  Collapse,
 };
