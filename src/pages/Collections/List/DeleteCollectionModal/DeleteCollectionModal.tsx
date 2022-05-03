@@ -1,8 +1,5 @@
 import React from "react";
-import { Modal, Text, Button } from "src/components";
-import Image from "next/image";
-import { DeleteModalContainer, YesButtonContainer } from "./style";
-import questionMark from "src/assets/svg/questionMarkWhite.svg";
+import { ConfirmationModal } from "src/components";
 
 interface DeleteCollectionModalProps {
   show: boolean;
@@ -18,33 +15,15 @@ const DeleteCollectionModal: React.FC<DeleteCollectionModalProps> = ({
   confirmDeleteCollection,
 }) => {
   return (
-    <Modal show={show} onLeave={onLeave}>
-      <DeleteModalContainer>
-        <div className="margin--medium-b margin--medium-t">
-          <Image
-            src={questionMark}
-            alt="confirmation"
-            width={100}
-            height={100}
-          />
-        </div>
-        <Text
-          text={`Are you sure you want to delete collection "${collectionToDelete}" ?`}
-          align="center"
-          size="xmedium"
-        />
-        <YesButtonContainer className="margin--medium-b margin--medium-t">
-          <Button
-            onClick={() => {
-              confirmDeleteCollection(collectionToDelete);
-            }}
-            text="Yes"
-            size="small"
-          />
-        </YesButtonContainer>
-        <Button onClick={onLeave} variant="dark" text="No" size="small" />
-      </DeleteModalContainer>
-    </Modal>
+    <ConfirmationModal
+      onLeave={onLeave}
+      show={show}
+      onNo={onLeave}
+      onYes={() => {
+        confirmDeleteCollection(collectionToDelete);
+      }}
+      title={`Are you sure you want to delete collection "${collectionToDelete}" ?`}
+    />
   );
 };
 

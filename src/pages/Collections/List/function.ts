@@ -19,7 +19,7 @@ export const useGetAnimeInCollection = ({
   const [getAnime, { loading, data }] = useLazyQuery(PopularAnimeList);
   useEffect(() => {
     if (animeIds?.length > 0) {
-      getAnime({ variables: { idIn: animeIds } });
+      getAnime({ variables: { idIn: animeIds, sort: ["ID"] } });
     }
   }, [animeIds]);
   return { loading, data };

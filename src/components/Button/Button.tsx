@@ -4,7 +4,7 @@ import Image from "next/image";
 import { MouseEvent } from "react";
 
 interface ButtonBaseProps {
-  variant?: "primary" | "grey" | "white" | "dark";
+  variant?: "primary" | "grey" | "white" | "dark" | "red";
   size?: "small" | "medium" | "large" | "xlarge";
   text?: string;
   onClick?: (() => void) | ((e: MouseEvent<HTMLElement>) => void);

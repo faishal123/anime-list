@@ -14,6 +14,7 @@ import Checkmark from "./Checkmark";
 import Notification from "./Notification";
 import Sidebar from "./Sidebar";
 import Collapse from "./Collapse";
+import ConfirmationModal from "./ConfirmationModal";
 
 export {
   Text,
@@ -32,4 +33,5 @@ export {
   Notification,
   Sidebar,
   Collapse,
+  ConfirmationModal,
 };

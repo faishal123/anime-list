@@ -1,21 +1,21 @@
 import { TitleType } from "../SingleAnime/interface";
 
 export interface SingleMedia {
-  title: TitleType | null;
-  id: number | null;
-  isAdult: boolean | null;
-  genres: string[] | null;
-  bannerImage: string | null;
-  popularity: number | null;
-  episodes: number | null;
-  status:
+  title?: TitleType | null;
+  id?: number | null;
+  isAdult?: boolean | null;
+  genres?: string[] | null;
+  bannerImage?: string | null;
+  popularity?: number | null;
+  episodes?: number | null;
+  status?:
     | "FINISHED"
     | "RELEASING"
     | "NOT_YET_RELEASED"
     | "CANCELLED"
     | "HIATUS"
     | null;
-  format:
+  format?:
     | "TV"
     | "TV_SHORT"
     | "MOVIE"
@@ -27,17 +27,17 @@ export interface SingleMedia {
     | "NOVEL"
     | "ONE_SHOT"
     | null;
-  chapters: number | null;
-  type: "ANIME" | "MANGA" | null;
-  meanScore: number | null;
-  averageScore: number | null;
-  coverImage: {
+  chapters?: number | null;
+  type?: "ANIME" | "MANGA" | null;
+  meanScore?: number | null;
+  averageScore?: number | null;
+  coverImage?: {
     extraLarge: string | null;
     large: string | null;
     medium: string | null;
     color: string | null;
   } | null;
-  trailer: {
+  trailer?: {
     id: number | null;
     site: string | null;
     thumbnail: string | null;

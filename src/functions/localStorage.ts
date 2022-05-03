@@ -47,3 +47,27 @@ export const deleteCollection = (key: string) => {
   }, {});
   setCollectionList(newData);
 };
+
+export const deleteAnimeFromCollection = (
+  animeId?: string | number | null,
+  collectionKey?: string
+) => {
+  if (animeId && collectionKey) {
+    const animeIdNumber = Number(animeId);
+    const prevData = getCollectionList();
+    const newKeys = Object.keys(prevData)?.filter((k) => k !== collectionKey);
+    const newCurrentCollection = prevData?.[collectionKey]?.filter(
+      (aid) => aid !== animeIdNumber
+    );
+    const newDataWithourCurrent = newKeys.reduce((a, c) => {
+      return { ...a, [c]: prevData?.[c] };
+    }, {});
+
+    const newData = {
+      ...newDataWithourCurrent,
+      [collectionKey]: newCurrentCollection,
+    };
+
+    setCollectionList(newData);
+  }
+};

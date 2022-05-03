@@ -22,3 +22,7 @@ export const parseHTML = (description: string | null, document: Document) => {
   descriptionContainer.innerHTML = description || "";
   return descriptionContainer.innerText;
 };
+
+export const showAnimeTitle = (anime: SingleMedia) => {
+  return anime?.title?.english || anime?.title?.romaji || anime?.title?.native;
+};

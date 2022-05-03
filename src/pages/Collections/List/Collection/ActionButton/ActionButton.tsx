@@ -28,7 +28,7 @@ const ActionButton: React.FC<ActionButtonProps> = ({
       <Collapse isOpen={expand}>
         <Link passHref href={`/collection/${collectionName}`}>
           <a>
-            <Button text="Edit" size="small" />
+            <Button text="View Collection" size="small" />
           </a>
         </Link>
         <div className="margin--medium-t">

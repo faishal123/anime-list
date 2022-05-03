@@ -6,6 +6,7 @@ const backgroundMap = new Map([
   ["grey", "#efefef"],
   ["white", "#efefef"],
   ["dark", "#3d3d3d"],
+  ["red", "#DD4F4F"],
 ]);
 
 const heightSizeMap = new Map([
@@ -30,7 +31,7 @@ const paddingMap = new Map([
 ]);
 
 interface ButtonBaseProps {
-  variant: "primary" | "grey" | "white" | "dark";
+  variant: "primary" | "grey" | "white" | "dark" | "red";
   size: "small" | "medium" | "large" | "xlarge";
   onClick: (() => void) | ((e: MouseEvent<HTMLElement>) => void);
   children: string | JSX.Element | JSX.Element[];

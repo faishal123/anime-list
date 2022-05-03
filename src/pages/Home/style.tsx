@@ -7,7 +7,6 @@ export const TitleContainer = styled.div`
 `;
 
 export const AnimeContainer = styled.div`
-  margin: 0 0 20px 0;
   display: flex;
   gap: 15px;
 `;
