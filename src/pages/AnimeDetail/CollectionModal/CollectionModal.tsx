@@ -30,7 +30,14 @@ const CollectionModal: React.FC<CollectionModalProps> = ({
           setRenderNotification={setRenderNotification}
         />
       ) : (
-        <NewCollectionForm setContent={setContent} />
+        <NewCollectionForm
+          onCompleted={() => {
+            setContent("list");
+          }}
+          onCancel={() => {
+            setContent("list");
+          }}
+        />
       )}
     </Modal>
   );

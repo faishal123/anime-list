@@ -10,24 +10,10 @@ import {
   Button,
   LoaderCircle,
   PageWrapper,
-  Genre,
 } from "../../components";
-import {
-  TitleContainer,
-  AnimeContainer,
-  AnimeBannerContainer,
-  AnimeInfoContainer,
-  RatingContainer,
-  GenresContainer,
-  LoadingContainer,
-  PageButtonContainer,
-} from "./style";
-import Image from "next/image";
-import { showAnimeFormatAndEpisode } from "src/functions/string";
-import starIconBlue from "src/assets/svg/starIconBlue.svg";
+import { TitleContainer, LoadingContainer, PageButtonContainer } from "./style";
 import { useRouter } from "next/router";
-import Link from "next/link";
-import placeholderImage from "src/assets/svg/placeholder.svg";
+import Anime from "./Anime";
 
 const Home = () => {
   // const isMobile = useMobile();
@@ -63,68 +49,7 @@ const Home = () => {
           </TitleContainer>
           <>
             {animeList?.map((anime) => {
-              return (
-                <AnimeContainer key={anime?.id}>
-                  <Link passHref href={`/anime/${anime?.id}`}>
-                    <a>
-                      <AnimeBannerContainer>
-                        <Image
-                          alt={`${anime?.title?.english}-banner`}
-                          height={138}
-                          width={100}
-                          src={anime?.coverImage?.medium || placeholderImage}
-                        />
-                      </AnimeBannerContainer>
-                    </a>
-                  </Link>
-                  <AnimeInfoContainer>
-                    <Link passHref href={`/anime/${anime?.id}`}>
-                      <a>
-                        <div className="margin--medium-b">
-                          <Text
-                            block
-                            color="white"
-                            text={
-                              anime?.title?.english ||
-                              anime?.title?.romaji ||
-                              anime?.title?.native ||
-                              ""
-                            }
-                            variant="bold"
-                            size="large"
-                          />
-                        </div>
-                      </a>
-                    </Link>
-                    <div className="margin--medium-b">
-                      <Text
-                        block
-                        color="white"
-                        text={showAnimeFormatAndEpisode(anime)}
-                        size="medium"
-                      />
-                    </div>
-                    <RatingContainer className="margin--medium-b">
-                      <Image
-                        alt="rating"
-                        height={16}
-                        width={16}
-                        src={starIconBlue}
-                      />
-                      <Text
-                        color="white"
-                        size="medium"
-                        text={`${(anime?.averageScore || 1) / 10}`}
-                      />
-                    </RatingContainer>
-                    <GenresContainer>
-                      {anime?.genres?.map((genre) => {
-                        return <Genre key={genre} genre={genre}></Genre>;
-                      })}
-                    </GenresContainer>
-                  </AnimeInfoContainer>
-                </AnimeContainer>
-              );
+              return <Anime key={anime?.id} anime={anime} />;
             })}
           </>
           <PageButtonContainer>

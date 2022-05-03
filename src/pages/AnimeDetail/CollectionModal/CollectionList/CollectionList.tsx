@@ -77,7 +77,7 @@ const CollectionList: React.FC<CollectionListProps> = ({
           })}
         </>
       ) : (
-        <Text block text="No Collection Found" size="xmedium" />
+        <Text block text="No Collection Found" size="xmedium" color="#909090" />
       )}
       <div className="margin--xlarge-t">
         <Button

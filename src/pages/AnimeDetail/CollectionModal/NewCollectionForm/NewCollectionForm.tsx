@@ -7,11 +7,13 @@ import {
 } from "src/functions/localStorage";
 
 interface NewCollectionFormProps {
-  setContent: React.Dispatch<React.SetStateAction<string>>;
+  onCompleted: () => void;
+  onCancel: () => void;
 }
 
 const NewCollectionForm: React.FC<NewCollectionFormProps> = ({
-  setContent,
+  onCompleted,
+  onCancel,
 }) => {
   const [inputValue, setInputValue] = useState("");
   const [inputError, setInputError] = useState("");
@@ -26,7 +28,7 @@ const NewCollectionForm: React.FC<NewCollectionFormProps> = ({
           setInputError("Collection Already Exist");
         } else {
           addNewCollectionKey(inputValue);
-          setContent("list");
+          onCompleted();
         }
       } else {
         setInputError("No Symbol Allowed");
@@ -68,7 +70,7 @@ const NewCollectionForm: React.FC<NewCollectionFormProps> = ({
         text="Cancel"
         size="small"
         onClick={() => {
-          setContent("list");
+          onCancel();
         }}
       />
     </div>

@@ -11,7 +11,6 @@ import { CollectionsType } from "src/constant/interface";
 import { LoaderCircle } from "src/components";
 import Image from "next/image";
 import placeholderImage from "src/assets/svg/placeholder.svg";
-import { NotificationStateType } from "src/constant/interface";
 import Link from "next/link";
 import ActionButton from "./ActionButton";
 import { SingleMedia } from "src/graphql/query/PopularAnimeList/interface";
@@ -23,10 +22,7 @@ interface CollectionProps {
   fullCollection: CollectionsType;
   loading: boolean;
   animes: SingleMedia[];
-  setRenderNotification: React.Dispatch<
-    React.SetStateAction<NotificationStateType>
-  >;
-  getCollectionFromLocalStorage: () => void;
+  onDeleteCollection: (name: string) => void;
 }
 
 const Collection: React.FC<CollectionProps> = ({
@@ -36,8 +32,7 @@ const Collection: React.FC<CollectionProps> = ({
   fullCollection,
   animes = [],
   loading,
-  setRenderNotification,
-  getCollectionFromLocalStorage,
+  onDeleteCollection,
 }) => {
   const animeIdsInCollection = fullCollection?.[name];
   const isEmptyCollection = animeIdsInCollection?.length <= 0;
@@ -90,8 +85,7 @@ const Collection: React.FC<CollectionProps> = ({
       {!loading ? (
         <div className="margin--medium-t">
           <ActionButton
-            getCollectionFromLocalStorage={getCollectionFromLocalStorage}
-            setRenderNotification={setRenderNotification}
+            onDeleteCollection={onDeleteCollection}
             collectionName={name}
           />
         </div>

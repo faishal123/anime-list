@@ -1,22 +1,16 @@
 import React, { useState } from "react";
 import { Button, Collapse } from "src/components";
 import threeDots from "src/assets/svg/threeDotsWhite.svg";
-import { deleteCollection } from "src/functions/localStorage";
-import { NotificationStateType } from "src/constant/interface";
 import Link from "next/link";
 
 interface ActionButtonProps {
   collectionName: string;
-  setRenderNotification: React.Dispatch<
-    React.SetStateAction<NotificationStateType>
-  >;
-  getCollectionFromLocalStorage: () => void;
+  onDeleteCollection: (name: string) => void;
 }
 
 const ActionButton: React.FC<ActionButtonProps> = ({
   collectionName,
-  setRenderNotification,
-  getCollectionFromLocalStorage,
+  onDeleteCollection,
 }) => {
   const [expand, setExpand] = useState(false);
   return (
@@ -43,12 +37,7 @@ const ActionButton: React.FC<ActionButtonProps> = ({
             text="Delete"
             size="small"
             onClick={() => {
-              deleteCollection(collectionName);
-              setRenderNotification({
-                type: "success",
-                message: "Collection Deleted!",
-              });
-              getCollectionFromLocalStorage();
+              onDeleteCollection(collectionName);
             }}
           />
         </div>
