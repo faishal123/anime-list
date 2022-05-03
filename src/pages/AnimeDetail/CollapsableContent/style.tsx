@@ -5,6 +5,7 @@ export const Container = styled.div`
   border: 1px solid #505050;
   border-radius: 10px;
   box-sizing: border-box;
+  cursor: pointer;
 `;
 
 export const TitleContainer = styled.div`

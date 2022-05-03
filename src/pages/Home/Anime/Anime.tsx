@@ -14,6 +14,7 @@ import { SingleMedia } from "src/graphql/query/PopularAnimeList/interface";
 import placeholderImage from "src/assets/svg/placeholder.svg";
 import starIconBlue from "src/assets/svg/starIconBlue.svg";
 import { DeleteButtonContainer } from "./style";
+import { useDesktop } from "src/functions/handleScreen";
 import trashIcon from "src/assets/svg/trashWhite.svg";
 
 interface AnimeProps {
@@ -27,6 +28,7 @@ const Anime: React.FC<AnimeProps> = ({
   showDeleteButton = false,
   onDelete = () => null,
 }) => {
+  const isDesktop = useDesktop();
   return (
     <div className="margin--xxlarge-b">
       <AnimeContainer key={anime?.id}>
@@ -38,7 +40,11 @@ const Anime: React.FC<AnimeProps> = ({
                   alt={`${anime?.title?.english}-banner`}
                   height={138}
                   width={100}
-                  src={anime?.coverImage?.medium || placeholderImage}
+                  src={
+                    isDesktop
+                      ? anime?.coverImage?.extraLarge
+                      : anime?.coverImage?.medium || placeholderImage
+                  }
                 />
               </AnimeBannerContainer>
             </a>

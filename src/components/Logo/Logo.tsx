@@ -7,7 +7,7 @@ const LogoContainer = styled.div`
 `;
 
 interface LogoProps {
-  onClick: () => void;
+  onClick?: () => void;
 }
 
 const Logo: React.FC<LogoProps> = ({ onClick }) => {

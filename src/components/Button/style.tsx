@@ -40,6 +40,7 @@ interface ButtonBaseProps {
 export const ButtonBase: React.FC<ButtonBaseProps> = styled.button(
   ({ variant, size }) => {
     return {
+      cursor: "pointer",
       fontSize: `${fontSizeMap.get(size)}px`,
       fontFamily: '"Jaldi", sans-serif',
       fontWeight: "bold",

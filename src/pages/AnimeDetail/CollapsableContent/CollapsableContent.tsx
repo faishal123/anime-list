@@ -6,14 +6,16 @@ interface CollapsableContentProps {
   children: JSX.Element | JSX.Element[];
   title: string;
   subtitle?: string;
+  defaultState?: boolean;
 }
 
 const CollapsableContent: React.FC<CollapsableContentProps> = ({
   children,
   title,
   subtitle,
+  defaultState = false,
 }) => {
-  const [expand, setExpand] = useState<boolean>(false);
+  const [expand, setExpand] = useState<boolean>(defaultState);
   return (
     <Container
       onClick={() => {

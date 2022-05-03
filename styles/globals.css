@@ -407,3 +407,24 @@ a {
 .padding--xxxxxxxxxxxxlarge-l {
   padding-left: 7rem
 }
+
+@media (min-width:480px) {
+  /* width */
+  ::-webkit-scrollbar {
+    width: 5px;
+    height: 10px;
+  }
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #303030;
+  }
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #505050;
+    border-radius: 5px;
+  }
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #606060;
+  }
+}

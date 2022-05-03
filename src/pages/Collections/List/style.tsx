@@ -13,3 +13,17 @@ export const NoCollectionContainer = styled.div(() => {
     },
   };
 });
+
+export const DesktopCollectionListContainer = styled.div`
+  display: inline-flex;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 20px;
+  > div {
+    width: calc(50% - 10px);
+  }
+`;
+
+export const AddCollectionButtonContainer = styled.div`
+  max-width: 300px;
+`;

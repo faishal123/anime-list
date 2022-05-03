@@ -43,49 +43,51 @@ const Collection: React.FC<CollectionProps> = ({
     <CollectionContainer
       className={index + 1 === length ? "" : "margin--large-b"}
     >
-      <div className="margin--small-b">
-        <Link passHref href={`/collection/${name}`}>
-          <a>
-            <Text text={name} size="xmedium" variant="bold" />
-          </a>
-        </Link>
-      </div>
-      {isEmptyCollection ? (
-        <Text text={"Collection is empty"} color="#00c2FF" size="medium" />
-      ) : loading ? (
-        <LoaderCircle size="small" />
-      ) : (
-        <OverflowContainer>
-          <AnimesContainer>
-            {animeDatasInThisCollection?.map((a) => {
-              return (
-                <Link key={a?.id} passHref href={`/anime/${a?.id}`}>
-                  <a>
-                    <SingleAnimeItem>
-                      <AnimeBannerContainer>
-                        <Image
-                          alt={`${a?.title?.english}-banner`}
-                          height={138}
-                          width={100}
-                          src={a?.coverImage?.medium || placeholderImage}
+      <div>
+        <div className="margin--small-b">
+          <Link passHref href={`/collection/${name}`}>
+            <a>
+              <Text text={name} size="xmedium" variant="bold" />
+            </a>
+          </Link>
+        </div>
+        {isEmptyCollection ? (
+          <Text text={"Collection is empty"} color="#00c2FF" size="medium" />
+        ) : loading ? (
+          <LoaderCircle size="small" />
+        ) : (
+          <OverflowContainer>
+            <AnimesContainer>
+              {animeDatasInThisCollection?.map((a) => {
+                return (
+                  <Link key={a?.id} passHref href={`/anime/${a?.id}`}>
+                    <a>
+                      <SingleAnimeItem>
+                        <AnimeBannerContainer>
+                          <Image
+                            alt={`${a?.title?.english}-banner`}
+                            height={138}
+                            width={100}
+                            src={a?.coverImage?.medium || placeholderImage}
+                          />
+                        </AnimeBannerContainer>
+                        <Text
+                          text={
+                            a?.title?.english ||
+                            a?.title?.romaji ||
+                            a?.title?.native ||
+                            ""
+                          }
                         />
-                      </AnimeBannerContainer>
-                      <Text
-                        text={
-                          a?.title?.english ||
-                          a?.title?.romaji ||
-                          a?.title?.native ||
-                          ""
-                        }
-                      />
-                    </SingleAnimeItem>
-                  </a>
-                </Link>
-              );
-            })}
-          </AnimesContainer>
-        </OverflowContainer>
-      )}
+                      </SingleAnimeItem>
+                    </a>
+                  </Link>
+                );
+              })}
+            </AnimesContainer>
+          </OverflowContainer>
+        )}
+      </div>
       {!loading ? (
         <div className="margin--medium-t">
           <ActionButton

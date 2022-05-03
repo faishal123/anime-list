@@ -14,12 +14,18 @@ import Collection from "./Collection";
 import { NotificationStateType } from "src/constant/interface";
 import { TitleContainer } from "src/pages/Home/style";
 import { CollectionsType } from "src/constant/interface";
-import { NoCollectionContainer } from "./style";
+import {
+  NoCollectionContainer,
+  AddCollectionButtonContainer,
+  DesktopCollectionListContainer,
+} from "./style";
 import DeleteCollectionModal from "./DeleteCollectionModal";
+import { useDesktop } from "src/functions/handleScreen";
 import CreateCollectionModal from "./CreateCollectionModal";
 import { deleteCollection } from "src/functions/localStorage";
 
 const List = () => {
+  const isDesktop = useDesktop();
   const [renderDeleteCollectionModal, setRenderDeleteCollectionModal] =
     useState<string>("");
   const [renderCreateCollectionModal, setRenderCreateCollectionModal] =
@@ -73,6 +79,33 @@ const List = () => {
     setRenderDeleteCollectionModal(name);
   };
 
+  const renderCollectionList = () => {
+    return collectionsKeys.map((c, i) => {
+      return (
+        <Collection
+          fullCollection={collections}
+          animes={data?.Page?.media}
+          loading={loading}
+          key={c}
+          index={i}
+          length={collectionsKeys?.length}
+          name={c}
+          onDeleteCollection={onDeleteCollection}
+        ></Collection>
+      );
+    });
+  };
+
+  const renderAddCollectionButton = () => {
+    return (
+      <Button
+        onClick={onAddNewCollection}
+        text="Add New Collection"
+        size="small"
+      />
+    );
+  };
+
   return (
     <>
       <DeleteCollectionModal
@@ -113,27 +146,20 @@ const List = () => {
           </TitleContainer>
           {collectionsKeys?.length > 0 ? (
             <>
-              <Button
-                onClick={onAddNewCollection}
-                text="Add New Collection"
-                size="small"
-              />
-              <div className="margin--large-t">
-                {collectionsKeys.map((c, i) => {
-                  return (
-                    <Collection
-                      fullCollection={collections}
-                      animes={data?.Page?.media}
-                      loading={loading}
-                      key={c}
-                      index={i}
-                      length={collectionsKeys?.length}
-                      name={c}
-                      onDeleteCollection={onDeleteCollection}
-                    ></Collection>
-                  );
-                })}
-              </div>
+              {isDesktop ? (
+                <AddCollectionButtonContainer>
+                  {renderAddCollectionButton()}
+                </AddCollectionButtonContainer>
+              ) : (
+                renderAddCollectionButton()
+              )}
+              {isDesktop ? (
+                <DesktopCollectionListContainer className="margin--large-t">
+                  {renderCollectionList()}
+                </DesktopCollectionListContainer>
+              ) : (
+                <div className="margin--large-t">{renderCollectionList()}</div>
+              )}
             </>
           ) : (
             <>

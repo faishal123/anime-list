@@ -16,14 +16,17 @@ import {
   ConfirmationModal,
   Notification,
 } from "src/components";
+import { useDesktop } from "src/functions/handleScreen";
 import { LoadingContainer } from "src/pages/Home/style";
 import { SingleMedia } from "src/graphql/query/PopularAnimeList/interface";
 import Anime from "src/pages/Home/Anime";
 import { TitleContainer } from "src/pages/Home/style";
 import { NotificationStateType } from "src/constant/interface";
+import { DesktopAnimeListContainer } from "src/pages/Home/style";
 import { showAnimeTitle } from "src/functions/string";
 
 const CollectionDetail = () => {
+  const isDesktop = useDesktop();
   const [renderNotification, setRenderNotification] =
     useState<NotificationStateType>({ type: "success", message: "" });
   const [renderDeleteModal, setRenderDeleteModal] = useState<SingleMedia>({});
@@ -55,6 +58,19 @@ const CollectionDetail = () => {
 
   const onDeleteAnimeFromCollection = (anime: SingleMedia) => {
     setRenderDeleteModal(anime);
+  };
+
+  const renderAnimeList = () => {
+    return animeList?.map((anime) => {
+      return (
+        <Anime
+          key={anime?.id}
+          anime={anime}
+          showDeleteButton
+          onDelete={onDeleteAnimeFromCollection}
+        />
+      );
+    });
   };
 
   return (
@@ -112,16 +128,13 @@ const CollectionDetail = () => {
               </TitleContainer>
               {animeIds?.length > 0 ? (
                 <>
-                  {animeList?.map((anime) => {
-                    return (
-                      <Anime
-                        key={anime?.id}
-                        anime={anime}
-                        showDeleteButton
-                        onDelete={onDeleteAnimeFromCollection}
-                      />
-                    );
-                  })}
+                  {isDesktop ? (
+                    <DesktopAnimeListContainer>
+                      {renderAnimeList()}
+                    </DesktopAnimeListContainer>
+                  ) : (
+                    renderAnimeList()
+                  )}
                 </>
               ) : (
                 <LoadingContainer>

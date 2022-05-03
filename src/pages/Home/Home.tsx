@@ -2,7 +2,7 @@
 import React, { useEffect } from "react";
 import { useGetPopularAnimeList } from "./function";
 import BackgroundWrapper from "../../components/BackgroundWrapper";
-// import { useMobile } from "../../functions/handleScreen";
+import { useDesktop } from "src/functions/handleScreen";
 import {
   Text,
   Header,
@@ -11,12 +11,18 @@ import {
   LoaderCircle,
   PageWrapper,
 } from "../../components";
-import { TitleContainer, LoadingContainer, PageButtonContainer } from "./style";
+import {
+  TitleContainer,
+  LoadingContainer,
+  PageButtonContainer,
+  DesktopAnimeListContainer,
+  DesktopPageButtonContainer,
+} from "./style";
 import { useRouter } from "next/router";
 import Anime from "./Anime";
 
 const Home = () => {
-  // const isMobile = useMobile();
+  const isDesktop = useDesktop();
   const { data, loading } = useGetPopularAnimeList();
   const animeList = data?.Page?.media || [];
   const router = useRouter();
@@ -28,7 +34,53 @@ const Home = () => {
     }
   }, [isRouterReady]);
 
-  // if (isMobile) {
+  const renderAnimeList = () => {
+    return animeList?.map((anime) => {
+      return <Anime key={anime?.id} anime={anime} />;
+    });
+  };
+
+  const renderTitle = () => {
+    return (
+      <TitleContainer className="margin--xxlarge-b">
+        <Line />
+        <Text
+          size="large"
+          variant="bold"
+          text="Most Popular of All Time"
+          color="white"
+        />
+      </TitleContainer>
+    );
+  };
+
+  const renderPageButton = () => {
+    return (
+      <>
+        {currentPage > 1 ? (
+          <div>
+            <Button
+              onClick={() => {
+                router.push(`/?page=${Number(currentPage) - 1}`);
+              }}
+              text="Prev"
+            />
+          </div>
+        ) : (
+          <div></div>
+        )}
+        <div>
+          <Button
+            onClick={() => {
+              router.push(`/?page=${Number(currentPage) + 1}`);
+            }}
+            text="Next"
+          />
+        </div>
+      </>
+    );
+  };
+
   return (
     <BackgroundWrapper>
       <Header />
@@ -37,49 +89,32 @@ const Home = () => {
           <LoaderCircle />
         </LoadingContainer>
       ) : (
-        <PageWrapper>
-          <TitleContainer className="margin--xxlarge-b">
-            <Line />
-            <Text
-              size="large"
-              variant="bold"
-              text="Most Popular of All Time"
-              color="white"
-            />
-          </TitleContainer>
-          <>
-            {animeList?.map((anime) => {
-              return <Anime key={anime?.id} anime={anime} />;
-            })}
-          </>
-          <PageButtonContainer>
-            {currentPage > 1 ? (
-              <div>
-                <Button
-                  onClick={() => {
-                    router.push(`/?page=${Number(currentPage) - 1}`);
-                  }}
-                  text="Prev"
-                />
-              </div>
-            ) : (
-              <div></div>
-            )}
-            <div>
-              <Button
-                onClick={() => {
-                  router.push(`/?page=${Number(currentPage) + 1}`);
-                }}
-                text="Next"
-              />
-            </div>
-          </PageButtonContainer>
-        </PageWrapper>
+        <>
+          {animeList?.length > 0 && (
+            <PageWrapper>
+              {renderTitle()}
+              <>
+                {isDesktop ? (
+                  <DesktopAnimeListContainer>
+                    {renderAnimeList()}
+                  </DesktopAnimeListContainer>
+                ) : (
+                  renderAnimeList()
+                )}
+              </>
+              {isDesktop ? (
+                <DesktopPageButtonContainer>
+                  {renderPageButton()}
+                </DesktopPageButtonContainer>
+              ) : (
+                <PageButtonContainer>{renderPageButton()}</PageButtonContainer>
+              )}
+            </PageWrapper>
+          )}
+        </>
       )}
     </BackgroundWrapper>
   );
-  // }
-  // return <div>home</div>;
 };
 
 export default Home;

@@ -8,7 +8,10 @@ export const BannerContainer = styled.div(() => {
     borderRadius: "20px",
     overflow: "hidden",
     "@media (max-width: 1024px) and (min-width: 480px)": {
-      maxWidth: "440px",
+      maxWidth: "420px",
+    },
+    "@media (min-width: 1024px)": {
+      maxWidth: "100%",
     },
   };
 });
@@ -32,4 +35,26 @@ export const SingleCollectionContainer = styled.div`
   border-radius: 5px;
   background: #303030;
   cursor: pointer;
+`;
+
+export const DesktopContainer = styled.div`
+  display: flex;
+  gap: 20px;
+`;
+
+export const DesktopLeftContainer = styled.div`
+  max-width: 350px;
+`;
+
+export const DesktopRightContainer = styled.div`
+  max-width: 400px;
+`;
+
+export const DesktopButtonContainer = styled.div`
+  max-width: 770px;
+  display: flex;
+  gap: 20px;
+  > div {
+    flex-grow: 1;
+  }
 `;

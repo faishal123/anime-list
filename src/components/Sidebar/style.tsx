@@ -50,3 +50,48 @@ export const SidebarMain: React.FC<SidebarMainProps> = styled.div(
     };
   }
 );
+
+export const DesktopSidebarContainer = styled.div`
+  height: 100%;
+  position: fixed;
+  min-width: 250px;
+  max-width: 250px;
+`;
+
+export const DesktopLogoContainer = styled.div`
+  padding: 0 40px;
+  height: 102px;
+  display: flex;
+  align-items: center;
+`;
+
+export const DesktopSidebarContentContainer = styled.div`
+  padding: 0 40px;
+`;
+
+interface SingleMenuProps {
+  active: boolean;
+  children: JSX.Element | JSX.Element[];
+}
+
+export const SingleMenu: React.FC<SingleMenuProps> = styled.div(
+  ({ active }) => {
+    return {
+      padding: "15px 20px",
+      border: `1px solid ${active ? "#909090" : "#505050"}`,
+      borderRadius: "10px",
+      boxSizing: "border-box",
+      cursor: "pointer",
+      display: "flex",
+      gap: "10px",
+      alignItems: "center",
+      marginBottom: "10px",
+      transition: "0.1s",
+      background: active ? "#303030" : "#202020",
+      "&:hover": {
+        transition: "0.1s",
+        border: `1px solid #00c2ff`,
+      },
+    };
+  }
+);

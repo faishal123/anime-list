@@ -4,6 +4,9 @@ export const CollectionContainer = styled.div`
   padding: 15px 20px;
   border: 1px solid #505050;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 export const AnimesContainer = styled.div`

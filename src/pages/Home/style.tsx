@@ -49,3 +49,15 @@ export const PageButtonContainer = styled.div`
   width: 100%;
   padding-top: 20px;
 `;
+
+export const DesktopAnimeListContainer = styled.div`
+  display: grid;
+  grid-template-columns: auto auto auto;
+`;
+
+export const DesktopPageButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+`;
