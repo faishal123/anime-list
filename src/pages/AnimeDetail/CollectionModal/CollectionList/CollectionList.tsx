@@ -1,26 +1,18 @@
 import React, { useState } from "react";
 import { Text, Line, Button } from "src/components";
-import {
-  getCollectionList,
-  addAnimeToCollections,
-} from "src/functions/localStorage";
-import { NotificationStateType } from "src/constant/interface";
+import { getCollectionList } from "src/functions/localStorage";
 import SingleCollection from "./SingleCollection";
 
 interface CollectionListProps {
   setContent: React.Dispatch<React.SetStateAction<string>>;
   animeId: string | number;
-  onLeave: () => void;
-  setRenderNotification: React.Dispatch<
-    React.SetStateAction<NotificationStateType>
-  >;
+  onAddToCollection: (collections: string[]) => void;
 }
 
 const CollectionList: React.FC<CollectionListProps> = ({
   setContent,
   animeId,
-  onLeave,
-  setRenderNotification,
+  onAddToCollection,
 }) => {
   const [selectedCollections, setSelectedCollections] = useState<string[]>([]);
   const alreadySelectCollection = selectedCollections?.length > 0;
@@ -37,12 +29,7 @@ const CollectionList: React.FC<CollectionListProps> = ({
   const haveCollection = collectionKeys?.length > 0;
 
   const onSubmit = () => {
-    addAnimeToCollections(animeId, selectedCollections);
-    setRenderNotification({
-      type: "success",
-      message: "Anime Added to Collection!",
-    });
-    onLeave();
+    onAddToCollection(selectedCollections);
   };
 
   return (

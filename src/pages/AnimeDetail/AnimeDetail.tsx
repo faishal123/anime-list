@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from "react";
 import { useGetSingleAnime } from "./function";
 import { Header } from "src/components";
 import { LoaderCircle } from "src/components";
@@ -12,20 +13,35 @@ import {
 } from "src/components";
 import CollectionModal from "./CollectionModal";
 import { Text, Notification } from "src/components";
-import { BannerContainer, StarRatingContainer, GenresContainer } from "./style";
+import {
+  BannerContainer,
+  StarRatingContainer,
+  GenresContainer,
+  SingleCollectionContainer,
+} from "./style";
 import { showAnimeFormatAndEpisode } from "src/functions/string";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { getCollectionList } from "src/functions/localStorage";
 import { parseHTML } from "src/functions/string";
 import { TitleContainer, LoadingContainer } from "../Home/style";
 import Link from "next/link";
 import placeholderImage from "src/assets/svg/placeholder.svg";
+import CollapsableContent from "./CollapsableContent";
 import { NotificationStateType } from "src/constant/interface";
 
 const AnimeDetail = () => {
   const router = useRouter();
   const animeId = router?.query?.id as string;
   const isRouterReady = router?.isReady;
+
+  if (!animeId && isRouterReady) {
+    router.push("/?page=1");
+  }
+
+  const [collectionWithCurrentAnime, setCollectionWithCurrentAnime] = useState<
+    string[]
+  >([]);
   const [renderNotification, setRenderNotification] =
     useState<NotificationStateType>({
       type: "success",
@@ -40,6 +56,31 @@ const AnimeDetail = () => {
     },
   });
 
+  const getCollectionWithCurrentAnime = () => {
+    const collectionsFromStorage = getCollectionList();
+    const collectionsArrayForm = Object.keys(collectionsFromStorage)?.reduce<
+      { name: string; animes: number[] }[]
+    >((a, c) => {
+      return [...a, { name: c, animes: collectionsFromStorage?.[c] }];
+    }, []);
+    const collectionsWithThisAnime = collectionsArrayForm?.reduce<string[]>(
+      (a, c) => {
+        if (c?.animes?.includes(Number(animeId))) {
+          return [...a, c?.name];
+        }
+        return a;
+      },
+      []
+    );
+    setCollectionWithCurrentAnime(collectionsWithThisAnime);
+  };
+
+  useEffect(() => {
+    if (isRouterReady) {
+      getCollectionWithCurrentAnime();
+    }
+  }, [isRouterReady]);
+
   const animeObject = data?.Media;
   const animeTitle = animeObject?.title;
   const largeCover = animeObject?.coverImage?.extraLarge;
@@ -49,10 +90,6 @@ const AnimeDetail = () => {
   const shownAnimeTitle =
     animeTitle?.english || animeTitle?.romaji || animeTitle?.native;
   const genres = animeObject?.genres;
-
-  if (!animeId && isRouterReady) {
-    router.push("/?page=1");
-  }
 
   return (
     <BackgroundWrapper>
@@ -65,6 +102,7 @@ const AnimeDetail = () => {
           message={renderNotification?.message}
         />
         <CollectionModal
+          getCollectionWithCurrentAnime={getCollectionWithCurrentAnime}
           setRenderNotification={setRenderNotification}
           animeId={animeId}
           show={renderCollectionModal}
@@ -112,29 +150,55 @@ const AnimeDetail = () => {
                 return <Genre key={genre} genre={genre} />;
               })}
             </GenresContainer>
-            <div>
-              <Text
-                block
-                align="justify"
-                lineHeight={1.5}
-                text={description}
-                size="medium"
-              />
+            <div className="margin--medium-b">
+              <CollapsableContent title="Summary">
+                <Text
+                  block
+                  align="justify"
+                  lineHeight={1.5}
+                  text={description}
+                  size="medium"
+                />
+              </CollapsableContent>
             </div>
-            {shouldShowTrailerButton ? (
-              <div className="margin--large-t">
-                <Link
-                  passHref
-                  href={`https://www.youtube.com/watch?v=${trailerObject?.id}`}
-                >
-                  <a target="_blank">
-                    <Button variant="dark" text="Watch Trailer" />
-                  </a>
-                </Link>
-              </div>
-            ) : (
-              <div></div>
-            )}
+            <div>
+              <CollapsableContent
+                subtitle="This anime is in these collections"
+                title="Collections"
+              >
+                <>
+                  {collectionWithCurrentAnime?.map((c, index) => {
+                    const isLast =
+                      index + 1 === collectionWithCurrentAnime?.length;
+                    return (
+                      <Link key={c} passHref href={`/collection/${c}`}>
+                        <a>
+                          <SingleCollectionContainer
+                            className={isLast ? "" : "margin--medium-b"}
+                          >
+                            <Text size="xmedium" text={`${c}`} />
+                          </SingleCollectionContainer>
+                        </a>
+                      </Link>
+                    );
+                  })}
+                </>
+              </CollapsableContent>
+            </div>
+            <>
+              {shouldShowTrailerButton ? (
+                <div className="margin--large-t">
+                  <Link
+                    passHref
+                    href={`https://www.youtube.com/watch?v=${trailerObject?.id}`}
+                  >
+                    <a target="_blank">
+                      <Button variant="dark" text="Watch Trailer" />
+                    </a>
+                  </Link>
+                </div>
+              ) : null}
+            </>
             <div className="margin--large-t">
               <Button
                 text="Add to Collection"

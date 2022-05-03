@@ -22,3 +22,11 @@ export const GenresContainer = styled.div`
   flex-wrap: wrap;
   width: 100%;
 `;
+
+export const SingleCollectionContainer = styled.div`
+  padding: 10px;
+  border: 1px solid #00c2ff;
+  border-radius: 5px;
+  background: #303030;
+  cursor: pointer;
+`;

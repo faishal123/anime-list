@@ -15,6 +15,7 @@ import Notification from "./Notification";
 import Sidebar from "./Sidebar";
 import Collapse from "./Collapse";
 import ConfirmationModal from "./ConfirmationModal";
+import Arrow from "./Arrow";
 
 export {
   Text,
@@ -34,4 +35,5 @@ export {
   Sidebar,
   Collapse,
   ConfirmationModal,
+  Arrow,
 };
