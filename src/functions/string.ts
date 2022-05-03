@@ -23,6 +23,11 @@ export const parseHTML = (description: string | null, document: Document) => {
   return descriptionContainer.innerText;
 };
 
-export const showAnimeTitle = (anime: SingleMedia) => {
-  return anime?.title?.english || anime?.title?.romaji || anime?.title?.native;
+export const showAnimeTitle = (anime?: SingleMedia | SingleMediaType) => {
+  if (!!anime) {
+    return (
+      anime?.title?.english || anime?.title?.romaji || anime?.title?.native
+    );
+  }
+  return "";
 };

@@ -19,6 +19,7 @@ import {
   GenresContainer,
   SingleCollectionContainer,
 } from "./style";
+import { showAnimeTitle } from "src/functions/string";
 import { showAnimeFormatAndEpisode } from "src/functions/string";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -82,15 +83,14 @@ const AnimeDetail = () => {
   }, [isRouterReady]);
 
   const animeObject = data?.Media;
-  const animeTitle = animeObject?.title;
   const largeCover = animeObject?.coverImage?.extraLarge;
   const trailerObject = animeObject?.trailer;
   const shouldShowTrailerButton = trailerObject?.site === "youtube";
 
-  const shownAnimeTitle =
-    animeTitle?.english || animeTitle?.romaji || animeTitle?.native;
+  const shownAnimeTitle = showAnimeTitle(animeObject);
   const genres = animeObject?.genres;
 
+  const isNotInAnyCollection = collectionWithCurrentAnime?.length <= 0;
   return (
     <BackgroundWrapper>
       <>
@@ -163,25 +163,36 @@ const AnimeDetail = () => {
             </div>
             <div>
               <CollapsableContent
-                subtitle="This anime is in these collections"
+                subtitle={
+                  isNotInAnyCollection
+                    ? undefined
+                    : "This anime is in these collections"
+                }
                 title="Collections"
               >
                 <>
-                  {collectionWithCurrentAnime?.map((c, index) => {
-                    const isLast =
-                      index + 1 === collectionWithCurrentAnime?.length;
-                    return (
-                      <Link key={c} passHref href={`/collection/${c}`}>
-                        <a>
-                          <SingleCollectionContainer
-                            className={isLast ? "" : "margin--medium-b"}
-                          >
-                            <Text size="xmedium" text={`${c}`} />
-                          </SingleCollectionContainer>
-                        </a>
-                      </Link>
-                    );
-                  })}
+                  {isNotInAnyCollection ? (
+                    <Text
+                      text="This anime is not in any collection"
+                      color="#00c2ff"
+                    />
+                  ) : (
+                    collectionWithCurrentAnime?.map((c, index) => {
+                      const isLast =
+                        index + 1 === collectionWithCurrentAnime?.length;
+                      return (
+                        <Link key={c} passHref href={`/collection/${c}`}>
+                          <a>
+                            <SingleCollectionContainer
+                              className={isLast ? "" : "margin--medium-b"}
+                            >
+                              <Text size="xmedium" text={`${c}`} />
+                            </SingleCollectionContainer>
+                          </a>
+                        </Link>
+                      );
+                    })
+                  )}
                 </>
               </CollapsableContent>
             </div>
