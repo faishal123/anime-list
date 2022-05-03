@@ -44,7 +44,11 @@ const Collection: React.FC<CollectionProps> = ({
       className={index + 1 === length ? "" : "margin--large-b"}
     >
       <div className="margin--small-b">
-        <Text text={name} size="xmedium" variant="bold" />
+        <Link passHref href={`/collection/${name}`}>
+          <a>
+            <Text text={name} size="xmedium" variant="bold" />
+          </a>
+        </Link>
       </div>
       {isEmptyCollection ? (
         <Text text={"Collection is empty"} color="#00c2FF" size="medium" />
