@@ -31,7 +31,7 @@ const NewCollectionForm: React.FC<NewCollectionFormProps> = ({
           onCompleted();
         }
       } else {
-        setInputError("No Symbol Allowed");
+        setInputError("No Symbol or Space Allowed");
       }
     }
   };

@@ -9,6 +9,14 @@ const backgroundMap = new Map([
   ["red", "#DD4F4F"],
 ]);
 
+const hoveredBackgroundMap = new Map([
+  ["primary", "#2bccff"],
+  ["grey", "#cfcfcf"],
+  ["white", "#cfcfcf"],
+  ["dark", "#404040"],
+  ["red", "#e66767"],
+]);
+
 const heightSizeMap = new Map([
   ["small", 40],
   ["medium", 50],
@@ -57,6 +65,11 @@ export const ButtonBase: React.FC<ButtonBaseProps> = styled.button(
       letterSpacing: "1px",
       width: "100%",
       overflow: "hidden",
+      transition: "0.2s",
+      "&:hover": {
+        background: hoveredBackgroundMap.get(variant),
+        transition: "0.2s",
+      },
     };
   }
 );
