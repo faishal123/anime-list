@@ -31,3 +31,14 @@ export const showAnimeTitle = (anime?: SingleMedia | SingleMediaType) => {
   }
   return "";
 };
+
+export const convertToCamelCase = (string: string): string => {
+  return string
+    .replace(/\s(.)/g, (a) => {
+      return a.toUpperCase();
+    })
+    .replace(/\s/g, "")
+    .replace(/^(.)/, (b) => {
+      return b.toLowerCase();
+    });
+};

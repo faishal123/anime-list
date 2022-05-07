@@ -9,6 +9,7 @@ interface TextProps {
   block?: boolean;
   align?: "left" | "center" | "justify";
   lineHeight?: number | "omitLineHeight";
+  id: string;
 }
 
 const Text: React.FC<TextProps> = ({
@@ -19,9 +20,12 @@ const Text: React.FC<TextProps> = ({
   block = false,
   lineHeight = 1,
   align = "left",
+  id,
 }) => {
   return (
     <TextBase
+      id={id}
+      data-testid={id}
       align={align}
       color={color}
       lineHeight={lineHeight === "omitLineHeight" ? undefined : lineHeight}

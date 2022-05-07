@@ -18,11 +18,16 @@ export const useGetSingleAnime = ({
   const [getSingleAnime, { loading, data }] = useLazyQuery(SingleAnime, {
     fetchPolicy: "no-cache",
     onCompleted,
+    onError: (e) => {
+      console.log(e);
+    },
   });
 
   useEffect(() => {
     if (isRouterReady && animeId) {
-      getSingleAnime({ variables: { id: animeId } });
+      getSingleAnime({
+        variables: { id: animeId },
+      });
     }
   }, [isRouterReady, animeId]);
 

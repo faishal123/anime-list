@@ -16,6 +16,7 @@ const DeleteCollectionModal: React.FC<DeleteCollectionModalProps> = ({
 }) => {
   return (
     <ConfirmationModal
+      id={`confirmationModal-deleteCollection-${collectionToDelete}`}
       onLeave={onLeave}
       show={show}
       onNo={onLeave}

@@ -14,6 +14,7 @@ interface NotificationProps {
   type: "success" | "error";
   message?: string | null;
   onClose?: () => void;
+  id: string;
 }
 
 function useHideNotif(
@@ -39,6 +40,7 @@ const Notification: React.FC<NotificationProps> = ({
   type,
   message,
   onClose = () => null,
+  id,
 }) => {
   const [loaded, setLoaded] = useState<boolean>(false);
   useHideNotif(onClose, 4800, message);
@@ -53,8 +55,8 @@ const Notification: React.FC<NotificationProps> = ({
         onClick={() => onClose()}
         role="button"
         tabIndex={0}
-        id={"close-button-notification"}
-        data-testid={"close-button-notification"}
+        id={`${id}-close-button`}
+        data-testid={`${id}-close-button`}
       >
         <Close color={"white"} />
       </CloseButton>
@@ -63,10 +65,14 @@ const Notification: React.FC<NotificationProps> = ({
   if (loaded && !!message) {
     return createPortal(
       <>
-        <ContainerNotification type={type}>
+        <ContainerNotification id={id} data-testid={id} type={type}>
           <WrapperContent>
             <Wrapmessage>
-              <Text text={message} size="xmedium" />
+              <Text
+                id="txt-notification-message"
+                text={message}
+                size="xmedium"
+              />
             </Wrapmessage>
             {RenderClose(onClose)}
           </WrapperContent>

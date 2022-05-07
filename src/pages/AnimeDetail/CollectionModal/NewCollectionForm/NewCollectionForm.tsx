@@ -37,9 +37,15 @@ const NewCollectionForm: React.FC<NewCollectionFormProps> = ({
   };
   return (
     <div>
-      <Text text="Add New Collection" size="large" variant="bold" />
+      <Text
+        id={`txt-addNewCollection`}
+        text="Add New Collection"
+        size="large"
+        variant="bold"
+      />
       <div className="margin--xxlarge-b margin--medium-t">
         <Input
+          id={`txt-inputNewCollectionName`}
           onChange={(e) => {
             setInputValue(e?.target?.value);
             if (inputError) {
@@ -54,10 +60,18 @@ const NewCollectionForm: React.FC<NewCollectionFormProps> = ({
           value={inputValue}
           placeholder="Input Collection Name"
         />
-        {inputError && <Text size="small" text={inputError} color="#ff9696" />}
+        {inputError && (
+          <Text
+            id={`txt-inputError`}
+            size="small"
+            text={inputError}
+            color="#ff9696"
+          />
+        )}
       </div>
       <div className="margin--medium-b">
         <Button
+          id={`txt-add`}
           text="Add"
           size="small"
           onClick={() => {
@@ -66,6 +80,7 @@ const NewCollectionForm: React.FC<NewCollectionFormProps> = ({
         />
       </div>
       <Button
+        id={`txt-cancel`}
         variant="dark"
         text="Cancel"
         size="small"

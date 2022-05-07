@@ -76,6 +76,7 @@ const CollectionDetail = () => {
   return (
     <>
       <Notification
+        id={`notification-${collectionName}`}
         onClose={() => {
           setRenderNotification((prev) => ({ ...prev, message: "" }));
         }}
@@ -83,6 +84,7 @@ const CollectionDetail = () => {
         type={renderNotification?.type}
       />
       <ConfirmationModal
+        id={`confirmationModal-${collectionName}`}
         show={!!renderDeleteModal?.id}
         onLeave={() => {
           setRenderDeleteModal({});
@@ -109,21 +111,27 @@ const CollectionDetail = () => {
         <Header />
         {loading ? (
           <LoadingContainer>
-            <LoaderCircle />
+            <LoaderCircle id={`loaderCircle-${collectionName}`} />
           </LoadingContainer>
         ) : (
           <>
-            <PageWrapper>
+            <PageWrapper id="pageWrapper">
               <TitleContainer className="margin--xxlarge-b">
-                <Line />
+                <Line id={`txt-title-line-${collectionName}`} />
                 <div>
                   <Text
+                    id={`txt-title-${collectionName}`}
                     size="large"
                     variant="bold"
                     text={`${collectionName} `}
                     color="white"
                   />
-                  <Text size="large" text={`Collection`} color="white" />
+                  <Text
+                    id={`txt-collection-text-${collectionName}`}
+                    size="large"
+                    text={`Collection`}
+                    color="white"
+                  />
                 </div>
               </TitleContainer>
               {animeIds?.length > 0 ? (
@@ -139,6 +147,7 @@ const CollectionDetail = () => {
               ) : (
                 <LoadingContainer>
                   <Text
+                    id={`txt-collectionEmpty-${collectionName}`}
                     text="Collection is empty"
                     size="large"
                     color="#909090"

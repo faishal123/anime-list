@@ -43,8 +43,9 @@ const Home = () => {
   const renderTitle = () => {
     return (
       <TitleContainer className="margin--xxlarge-b">
-        <Line />
+        <Line id="line-homeTitle" />
         <Text
+          id="txt-mostPopular"
           size="large"
           variant="bold"
           text="Most Popular of All Time"
@@ -60,6 +61,7 @@ const Home = () => {
         {currentPage > 1 ? (
           <div>
             <Button
+              id="btn-prevPage"
               onClick={() => {
                 router.push(`/?page=${Number(currentPage) - 1}`);
               }}
@@ -71,6 +73,7 @@ const Home = () => {
         )}
         <div>
           <Button
+            id="btn-nextPage"
             onClick={() => {
               router.push(`/?page=${Number(currentPage) + 1}`);
             }}
@@ -86,12 +89,12 @@ const Home = () => {
       <Header />
       {loading ? (
         <LoadingContainer>
-          <LoaderCircle />
+          <LoaderCircle id="loaderCircle-home" />
         </LoadingContainer>
       ) : (
         <>
           {animeList?.length > 0 && (
-            <PageWrapper>
+            <PageWrapper id="pageWrapper">
               {renderTitle()}
               <>
                 {isDesktop ? (

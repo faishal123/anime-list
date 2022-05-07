@@ -7,19 +7,25 @@ interface BackgroundWrapperProps {
   children: JSX.Element | JSX.Element[];
 }
 
+const defaultId = "backgroundWrapper";
+
 const BackgroundWrapper: React.FC<BackgroundWrapperProps> = ({ children }) => {
   const isDesktop = useDesktop();
   if (isDesktop) {
     return (
-      <Background id="backgroundWrapper">
+      <Background data-testid={defaultId} id={defaultId}>
         <LeftContent>
-          <Sidebar show onClose={() => null} />
+          <Sidebar props={{ id: "sidebar-mainNav" }} isDesktop={isDesktop} />
         </LeftContent>
         <RightContent>{children}</RightContent>
       </Background>
     );
   }
-  return <Background id="backgroundWrapper">{children}</Background>;
+  return (
+    <Background data-testid={defaultId} id={defaultId}>
+      {children}
+    </Background>
+  );
 };
 
 export default BackgroundWrapper;

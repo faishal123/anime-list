@@ -15,15 +15,17 @@ interface TextBaseProps {
   block: boolean;
   children: string;
   color: string;
+  id: string;
+  "data-testid": string;
   align: "left" | "center" | "justify";
 }
 
 export const TextBase: React.FC<TextBaseProps> = styled.span((props) => ({
   fontFamily: '"Jaldi", sans-serif',
-  color: props?.color,
-  fontWeight: props?.variant,
-  fontSize: fontSizeMap.get(props?.size || "medium"),
-  lineHeight: props?.lineHeight,
-  display: props?.block ? "block" : "inline",
-  textAlign: props?.align,
+  color: props.color,
+  fontWeight: props.variant,
+  fontSize: fontSizeMap.get(props.size),
+  lineHeight: props.lineHeight,
+  display: props.block ? "block" : "inline",
+  textAlign: props.align,
 }));

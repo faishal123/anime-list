@@ -42,10 +42,6 @@ const AnimeDetail = () => {
   const isRouterReady = router?.isReady;
   const isDesktop = useDesktop();
 
-  if (!animeId && isRouterReady) {
-    router.push("/?page=1");
-  }
-
   const [collectionWithCurrentAnime, setCollectionWithCurrentAnime] = useState<
     string[]
   >([]);
@@ -84,7 +80,13 @@ const AnimeDetail = () => {
 
   useEffect(() => {
     if (isRouterReady) {
-      getCollectionWithCurrentAnime();
+      if (!animeId) {
+        console.log("1");
+        router.push("/?page=1");
+      } else {
+        console.log("sini");
+        getCollectionWithCurrentAnime();
+      }
     }
   }, [isRouterReady]);
 
@@ -103,16 +105,22 @@ const AnimeDetail = () => {
       return (
         <div className="margin--large-b">
           <TitleContainer className="margin--small-b">
-            <Line height="34px" />
-            <Text variant="bold" text={shownAnimeTitle || ""} size="xxlarge" />
+            <Line id={`title-line-${animeId}`} height="34px" />
+            <Text
+              id={`txt-title-${animeId}`}
+              variant="bold"
+              text={shownAnimeTitle || ""}
+              size="xxlarge"
+            />
           </TitleContainer>
           <div className="margin--large-l">
             <StarRatingContainer>
               <Text
+                id={`txt-format-${animeId}`}
                 size="medium"
                 text={showAnimeFormatAndEpisode(animeObject)}
               />
-              <StarRating anime={animeObject} />
+              <StarRating id={`rating-${animeId}`} anime={animeObject} />
             </StarRatingContainer>
           </div>
         </div>
@@ -137,6 +145,7 @@ const AnimeDetail = () => {
         <div className="margin--medium-b">
           <CollapsableContent defaultState={isDesktop} title="Summary">
             <Text
+              id={`txt-description-${animeId}`}
               block
               align="justify"
               lineHeight={1.5}
@@ -157,6 +166,7 @@ const AnimeDetail = () => {
             <>
               {isNotInAnyCollection ? (
                 <Text
+                  id={`txt-hasNoCollection-${animeId}`}
                   text="This anime is not in any collection"
                   color="#00c2ff"
                 />
@@ -170,7 +180,11 @@ const AnimeDetail = () => {
                         <SingleCollectionContainer
                           className={isLast ? "" : "margin--medium-b"}
                         >
-                          <Text size="xmedium" text={`${c}`} />
+                          <Text
+                            id={`txt-collection-${animeId}-${c}`}
+                            size="xmedium"
+                            text={`${c}`}
+                          />
                         </SingleCollectionContainer>
                       </a>
                     </Link>
@@ -194,7 +208,11 @@ const AnimeDetail = () => {
               href={`https://www.youtube.com/watch?v=${trailerObject?.id}`}
             >
               <a target="_blank">
-                <Button variant="dark" text="Watch Trailer" />
+                <Button
+                  id={`btn-watchTrailerButton-${animeId}`}
+                  variant="dark"
+                  text="Watch Trailer"
+                />
               </a>
             </Link>
           </div>
@@ -207,6 +225,7 @@ const AnimeDetail = () => {
     return (
       <div className="margin--large-t">
         <Button
+          id={`btn-addToCollection-${animeId}`}
           text="Add to Collection"
           onClick={() => {
             if (isRouterReady) {
@@ -236,6 +255,7 @@ const AnimeDetail = () => {
     <BackgroundWrapper>
       <>
         <Notification
+          id={`notification-${animeId}`}
           onClose={() => {
             setRenderNotification((prev) => ({ ...prev, message: "" }));
           }}
@@ -254,10 +274,10 @@ const AnimeDetail = () => {
         <Header />
         {loading ? (
           <LoadingContainer>
-            <LoaderCircle />
+            <LoaderCircle id={`loaderCircle-${animeId}`} />
           </LoadingContainer>
         ) : !!data && !!animeObject ? (
-          <PageWrapper>
+          <PageWrapper id={"pageWrapper"}>
             <>{renderTitle()}</>
             {isDesktop ? (
               <>

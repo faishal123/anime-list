@@ -10,6 +10,8 @@ const fadeInDown = keyframes({
 interface ContainerNotificationProps {
   type: "success" | "error";
   children: JSX.Element | JSX.Element[];
+  id: string;
+  "data-testid": string;
 }
 
 export const ContainerNotification: React.FC<ContainerNotificationProps> =

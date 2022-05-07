@@ -23,14 +23,23 @@ const CollapsableContent: React.FC<CollapsableContentProps> = ({
       }}
     >
       <TitleContainer>
-        <Text text={title} size="large" variant="bold" />
-        <Arrow rotate={expand ? -135 : 45} />
+        <Text
+          id={`txt-collapsible-${title}`}
+          text={title}
+          size="large"
+          variant="bold"
+        />
+        <Arrow id="arw-toggleExpand" rotate={expand ? -135 : 45} />
       </TitleContainer>
-      <Collapse isOpen={expand}>
+      <Collapse id={`collapse-${title}`} isOpen={expand}>
         <>
           {!!subtitle ? (
             <div>
-              <Text text={subtitle} size="medium" />
+              <Text
+                id={`txt-collapsible-${subtitle}`}
+                text={subtitle}
+                size="medium"
+              />
             </div>
           ) : null}
         </>

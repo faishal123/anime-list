@@ -13,6 +13,7 @@ interface ConfirmationModalProps {
   onYes: () => void;
   onNo: () => void;
   title: string;
+  id: string;
 }
 
 const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
@@ -21,9 +22,10 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   onYes,
   onNo,
   title,
+  id,
 }) => {
   return (
-    <Modal show={show} onLeave={onLeave}>
+    <Modal data-testid={id} id={id} show={show} onLeave={onLeave}>
       <DeleteModalContainer>
         <div className="margin--medium-b margin--medium-t">
           <Image
@@ -33,9 +35,10 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
             height={100}
           />
         </div>
-        <Text text={title} align="center" size="xmedium" />
+        <Text id={`${id}-title`} text={title} align="center" size="xmedium" />
         <YesButtonContainer className="margin--medium-b margin--medium-t">
           <Button
+            id={`btn-${id}-yes`}
             onClick={() => {
               onYes();
             }}
@@ -43,7 +46,13 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
             size="small"
           />
         </YesButtonContainer>
-        <Button onClick={() => onNo()} variant="dark" text="No" size="small" />
+        <Button
+          id={`btn-${id}-no`}
+          onClick={() => onNo()}
+          variant="dark"
+          text="No"
+          size="small"
+        />
       </DeleteModalContainer>
     </Modal>
   );

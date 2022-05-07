@@ -14,7 +14,7 @@ const CreateCollectionModal: React.FC<CreateCollectionModalProps> = ({
   onCompleted,
 }) => {
   return (
-    <Modal show={show} onLeave={onLeave}>
+    <Modal id="modal-createNewCollection" show={show} onLeave={onLeave}>
       <NewCollectionForm onCompleted={onCompleted} onCancel={onLeave} />
     </Modal>
   );

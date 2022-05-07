@@ -31,18 +31,6 @@ export function useWindowSize(): WindowSizeType {
   return windowSize;
 }
 
-export function useMobile(): boolean {
-  return (useWindowSize().width || 1024) <= 480;
-}
-
-export function useTablet(): boolean {
-  return (useWindowSize().width || 1024) <= 600;
-}
-
-export function useCustomScreenSize(size: number): boolean {
-  return (useWindowSize().width || 1024) <= size;
-}
-
 export function useDesktop(): boolean {
   const screenWidth = useWindowSize().width;
 
@@ -51,10 +39,7 @@ export function useDesktop(): boolean {
 
 const useScreenSize = {
   useWindowSize,
-  useMobile,
-  useTablet,
   useDesktop,
-  useCustomScreenSize,
 };
 
 export default useScreenSize;

@@ -34,14 +34,29 @@ const CollectionList: React.FC<CollectionListProps> = ({
 
   return (
     <div>
-      <Text block text="Add to Collection" variant="bold" size="large" />
+      <Text
+        id={`txt-addToCollection-title-${animeId}`}
+        block
+        text="Add to Collection"
+        variant="bold"
+        size="large"
+      />
       <div className="margin--medium-b margin--medium-t">
-        <Line width="100%" height="1px" color="#505050" />
+        <Line
+          id={`line-addToCollection-${animeId}`}
+          width="100%"
+          height="1px"
+          color="#505050"
+        />
       </div>
       {haveCollection ? (
         <>
           <div className="margin--medium-b">
-            <Text text="Choose Collection to Add Anime into" size="xmedium" />
+            <Text
+              id={`txt-title-addToCollection-${animeId}`}
+              text="Choose Collection to Add Anime into"
+              size="xmedium"
+            />
           </div>
           {shownCollections?.map((c) => {
             const isSelected: boolean = selectedCollections?.includes(c?.name);
@@ -64,10 +79,17 @@ const CollectionList: React.FC<CollectionListProps> = ({
           })}
         </>
       ) : (
-        <Text block text="No Collection Found" size="xmedium" color="#909090" />
+        <Text
+          id={`txt-noCollectionFound-${animeId}`}
+          block
+          text="No Collection Found"
+          size="xmedium"
+          color="#909090"
+        />
       )}
       <div className="margin--xlarge-t">
         <Button
+          id={`btn-submit-${animeId}`}
           onClick={() => {
             if (alreadySelectCollection) {
               onSubmit();

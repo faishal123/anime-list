@@ -53,6 +53,7 @@ const Anime: React.FC<AnimeProps> = ({
           {showDeleteButton ? (
             <DeleteButtonContainer>
               <Button
+                id={`btn-delete-${anime?.id}`}
                 onClick={() => {
                   onDelete(anime);
                 }}
@@ -71,6 +72,7 @@ const Anime: React.FC<AnimeProps> = ({
             <a>
               <div className="margin--medium-b">
                 <Text
+                  id={`txt-title-${anime?.id}`}
                   block
                   color="white"
                   text={
@@ -87,6 +89,7 @@ const Anime: React.FC<AnimeProps> = ({
           </Link>
           <div className="margin--medium-b">
             <Text
+              id={`txt-anime-format-${anime?.id}`}
               block
               color="white"
               text={showAnimeFormatAndEpisode(anime)}
@@ -96,6 +99,7 @@ const Anime: React.FC<AnimeProps> = ({
           <RatingContainer className="margin--medium-b">
             <Image alt="rating" height={16} width={16} src={starIconBlue} />
             <Text
+              id={`txt-score-${anime?.id}`}
               color="white"
               size="medium"
               text={`${(anime?.averageScore || 1) / 10}`}

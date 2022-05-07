@@ -5,22 +5,20 @@ export interface TitleType {
 }
 
 export interface CharacterType {
-  nodes: {
-    id: number | null;
-    name: {
-      first: string | null;
-      middle: string | null;
-      last: string | null;
-      full: string | null;
-      native: string | null;
-      userPreferred: string | null;
-    } | null;
-    image: {
-      large: string | null;
-      medium: string | null;
-    } | null;
-    description: string | null;
-  };
+  id: number | null;
+  name: {
+    first: string | null;
+    middle: string | null;
+    last: string | null;
+    full: string | null;
+    native: string | null;
+    userPreferred: string | null;
+  } | null;
+  image: {
+    large: string | null;
+    medium: string | null;
+  } | null;
+  description: string | null;
 }
 
 export interface SingleMediaType {
@@ -55,7 +53,7 @@ export interface SingleMediaType {
   type: "ANIME" | "MANGA" | null;
   meanScore: number | null;
   averageScore: number | null;
-  characters: CharacterType[] | null;
+  characters: { nodes: CharacterType[] | null };
   coverImage: {
     extraLarge: string | null;
     large: string | null;
@@ -63,7 +61,7 @@ export interface SingleMediaType {
     color: string | null;
   } | null;
   trailer: {
-    id: number | null;
+    id: string | number | null;
     site: string | null;
     thumbnail: string | null;
   } | null;

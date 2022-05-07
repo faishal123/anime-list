@@ -17,11 +17,13 @@ const spin = keyframes`
 `;
 
 interface LoaderProps {
+  id: string;
+  "data-testid": string;
   size: "small" | "medium" | "large" | "xlarge" | "xxlarge" | "xxxlarge";
 }
 
 export const Loader: React.FC<LoaderProps> = styled.div(({ size }) => {
-  const sizeToUse = dimentionMap?.[size] || dimentionMap?.["medium"];
+  const sizeToUse = dimentionMap[size];
   return {
     border: `${sizeToUse / 7.5 + 1}px solid #f3f3f3`,
     borderTop: `${sizeToUse / 7.5 + 1}px solid #00c2ff`,

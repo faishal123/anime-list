@@ -16,7 +16,11 @@ interface UseGetAnimeInCollectionReturn {
 export const useGetAnimeInCollection = ({
   animeIds = [],
 }: UseGetAnimeInCollectionParam): UseGetAnimeInCollectionReturn => {
-  const [getAnime, { loading, data }] = useLazyQuery(PopularAnimeList);
+  const [getAnime, { loading, data }] = useLazyQuery(PopularAnimeList, {
+    onError: (e) => {
+      console.log(e);
+    },
+  });
   useEffect(() => {
     if (animeIds?.length > 0) {
       getAnime({ variables: { idIn: animeIds, sort: ["ID"] } });

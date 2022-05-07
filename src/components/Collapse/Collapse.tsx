@@ -4,20 +4,27 @@ interface CollapseProps {
   children: JSX.Element | JSX.Element[];
   maxHeight?: number;
   isOpen: boolean;
+  id: string;
 }
 
-const Collapse: React.FC<CollapseProps> = ({ children, maxHeight, isOpen }) => {
+const Collapse: React.FC<CollapseProps> = ({
+  children,
+  maxHeight,
+  isOpen,
+  id,
+}) => {
   const [childHeight, setChildHeight] = useState<string>("0px");
   const childRef = useRef<HTMLDivElement | null>(null);
+  const current = childRef.current || ({ offsetHeight: 0 } as HTMLDivElement);
   const getElementHeight = () => {
     if (maxHeight) {
       return `${
-        maxHeight && maxHeight < (childRef?.current?.offsetHeight || 0)
+        maxHeight && maxHeight < current.offsetHeight
           ? maxHeight
-          : childRef?.current?.offsetHeight
+          : current.offsetHeight
       }px`;
     }
-    return `${childRef?.current?.offsetHeight}px`;
+    return `${current.offsetHeight}px`;
   };
 
   useEffect(() => {
@@ -31,13 +38,17 @@ const Collapse: React.FC<CollapseProps> = ({ children, maxHeight, isOpen }) => {
 
   return (
     <div
+      id={id}
+      data-testid={id}
       style={{
         overflow: "auto",
         transition: "0.3s",
         height: childHeight,
       }}
     >
-      <div ref={childRef}>{children}</div>
+      <div data-testid={`${id}-isOpen-${isOpen}`} ref={childRef}>
+        {children}
+      </div>
     </div>
   );
 };

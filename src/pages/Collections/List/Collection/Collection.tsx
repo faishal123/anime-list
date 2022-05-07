@@ -13,6 +13,7 @@ import Image from "next/image";
 import placeholderImage from "src/assets/svg/placeholder.svg";
 import Link from "next/link";
 import ActionButton from "./ActionButton";
+import { showAnimeTitle } from "src/functions/string";
 import { SingleMedia } from "src/graphql/query/PopularAnimeList/interface";
 
 interface CollectionProps {
@@ -47,14 +48,24 @@ const Collection: React.FC<CollectionProps> = ({
         <div className="margin--small-b">
           <Link passHref href={`/collection/${name}`}>
             <a>
-              <Text text={name} size="xmedium" variant="bold" />
+              <Text
+                id={`txt-title-${name}`}
+                text={name}
+                size="xmedium"
+                variant="bold"
+              />
             </a>
           </Link>
         </div>
         {isEmptyCollection ? (
-          <Text text={"Collection is empty"} color="#00c2FF" size="medium" />
+          <Text
+            id={`txt-collectionEmpty-${name}`}
+            text={"Collection is empty"}
+            color="#00c2FF"
+            size="medium"
+          />
         ) : loading ? (
-          <LoaderCircle size="small" />
+          <LoaderCircle id={`loaderCircle-${name}`} size="small" />
         ) : (
           <OverflowContainer>
             <AnimesContainer>
@@ -72,12 +83,8 @@ const Collection: React.FC<CollectionProps> = ({
                           />
                         </AnimeBannerContainer>
                         <Text
-                          text={
-                            a?.title?.english ||
-                            a?.title?.romaji ||
-                            a?.title?.native ||
-                            ""
-                          }
+                          id={`txt-anime-title-${name}-${showAnimeTitle(a)}`}
+                          text={`${showAnimeTitle(a)}`}
                         />
                       </SingleAnimeItem>
                     </a>

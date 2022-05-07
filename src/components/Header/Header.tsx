@@ -16,6 +16,7 @@ const Header: React.FC = () => {
     <HeaderContainer>
       {!isDesktop ? (
         <Logo
+          id="logo-animu"
           onClick={() => {
             router.push("/?page=1");
           }}
@@ -28,6 +29,8 @@ const Header: React.FC = () => {
         {!isDesktop && (
           <HamburgerContainer>
             <Image
+              id="img-hamburger"
+              data-testid="img-hamburger"
               alt="hamburger"
               src={hamburgerIcon}
               onClick={() => {
@@ -39,9 +42,13 @@ const Header: React.FC = () => {
       </SearchContainer>
       {!isDesktop && (
         <Sidebar
-          show={showSidebar}
-          onClose={() => {
-            setShowSidebar(false);
+          isDesktop={false}
+          props={{
+            id: "sidebar-mainMobile",
+            show: showSidebar,
+            onClose: () => {
+              setShowSidebar(false);
+            },
           }}
         />
       )}

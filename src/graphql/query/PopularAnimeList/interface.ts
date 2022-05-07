@@ -38,10 +38,11 @@ export interface SingleMedia {
     color: string | null;
   } | null;
   trailer?: {
-    id: number | null;
+    id: string | number | null;
     site: string | null;
     thumbnail: string | null;
   } | null;
+  description?: string | null;
 }
 
 export interface PagesType {

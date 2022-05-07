@@ -35,7 +35,11 @@ const CollectionModal: React.FC<CollectionModalProps> = ({
   };
 
   return (
-    <Modal onLeave={onLeave} show={show}>
+    <Modal
+      id={`modal-addToCollection-${animeId}`}
+      onLeave={onLeave}
+      show={show}
+    >
       {content === "list" ? (
         <CollectionList
           onAddToCollection={onAddToCollection}

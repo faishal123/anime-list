@@ -39,6 +39,7 @@ const paddingMap = new Map([
 ]);
 
 interface ButtonBaseProps {
+  id: string;
   variant: "primary" | "grey" | "white" | "dark" | "red";
   size: "small" | "medium" | "large" | "xlarge";
   onClick: (() => void) | ((e: MouseEvent<HTMLElement>) => void);

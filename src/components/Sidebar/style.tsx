@@ -4,6 +4,7 @@ import React from "react";
 interface SidebarMainProps {
   show: boolean;
   children: JSX.Element | JSX.Element[];
+  id: string;
 }
 
 export const SidebarContainer: React.FC<SidebarMainProps> = styled.div(
@@ -27,11 +28,7 @@ export const CloseArea = styled.div(() => {
 
 export const SidebarMain: React.FC<SidebarMainProps> = styled.div(
   ({ show }) => {
-    const screenWidth = window.innerWidth;
     const defineWidth = () => {
-      if (show && screenWidth > 500) {
-        return "300px";
-      }
       if (show) {
         return "60vw";
       }
@@ -43,7 +40,7 @@ export const SidebarMain: React.FC<SidebarMainProps> = styled.div(
       height: "100vh",
       transition: "0.3s",
       background: "#202020",
-      boxShadow: "-10px 0px 10px #000000",
+      boxShadow: "-10px 0px 10px #191919",
       padding: show ? "20px" : "20px 0",
       whiteSpace: "nowrap",
       overflow: "hidden",

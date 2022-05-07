@@ -23,6 +23,7 @@ const SingleCollection: React.FC<SingleCollectionProps> = ({
     >
       <div>
         <Text
+          id={`txt-title-${name}`}
           block
           text={name}
           variant={isSelected || alreadyIn ? "bold" : "regular"}
@@ -30,13 +31,18 @@ const SingleCollection: React.FC<SingleCollectionProps> = ({
         />
         {alreadyIn && (
           <Text
+            id={`txt-title-alreadyIn-${name}`}
             text="Already in this collection"
             color="#00C2FF"
             size="small"
           />
         )}
       </div>
-      {isSelected && !alreadyIn ? <Checkmark /> : <div></div>}
+      {isSelected && !alreadyIn ? (
+        <Checkmark id={`checkMark-${name}`} />
+      ) : (
+        <div></div>
+      )}
     </SingleCollectionContainer>
   );
 };

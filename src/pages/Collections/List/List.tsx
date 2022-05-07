@@ -99,6 +99,7 @@ const List = () => {
   const renderAddCollectionButton = () => {
     return (
       <Button
+        id={`btn-addNewCollection`}
         onClick={onAddNewCollection}
         text="Add New Collection"
         size="small"
@@ -131,6 +132,7 @@ const List = () => {
         }}
       />
       <Notification
+        id="notification-collection-list"
         onClose={() => {
           setRenderNotification((prev) => ({ ...prev, message: "" }));
         }}
@@ -139,10 +141,15 @@ const List = () => {
       />
       <BackgroundWrapper>
         <Header />
-        <PageWrapper>
+        <PageWrapper id="pageWrapper">
           <TitleContainer className="margin--xxlarge-b">
-            <Line />
-            <Text text="Your Collections" size="large" variant="bold" />
+            <Line id="line-collection-list" />
+            <Text
+              id="txt-title"
+              text="Your Collections"
+              size="large"
+              variant="bold"
+            />
           </TitleContainer>
           {collectionsKeys?.length > 0 ? (
             <>
@@ -166,6 +173,7 @@ const List = () => {
               <NoCollectionContainer className="margin--xxxxlarge-t">
                 <div>
                   <Text
+                    id="txt-collection-empty"
                     align="center"
                     text={"You Have no Collection"}
                     size="xmedium"
@@ -174,6 +182,7 @@ const List = () => {
                   />
                   <div onClick={onAddNewCollection} className="margin--small-t">
                     <Text
+                      id="txt-addNewCollection"
                       align="center"
                       text={"Click to add a new collection"}
                       size="xmedium"

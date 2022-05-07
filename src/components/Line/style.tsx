@@ -5,6 +5,8 @@ interface LineBaseProps {
   height: string;
   width: string;
   color: string;
+  id: string;
+  "data-testid": string;
 }
 
 export const LineBase: React.FC<LineBaseProps> = styled.div(

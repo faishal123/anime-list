@@ -21,6 +21,9 @@ export const useGetPopularAnimeList = (): {
           backgroundWrapper.scrollTo({ top: 0, behavior: "smooth" });
         }
       },
+      onError: (e) => {
+        console.log(e);
+      },
     }
   );
   useEffect(() => {

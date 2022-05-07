@@ -8,6 +8,7 @@ interface ButtonBaseProps {
   size?: "small" | "medium" | "large" | "xlarge";
   text?: string;
   onClick?: (() => void) | ((e: MouseEvent<HTMLElement>) => void);
+  id: string;
   iconOnly?: {
     src: string;
     width?: string;
@@ -23,21 +24,27 @@ const Button: React.FC<ButtonBaseProps> = ({
   variant = "primary",
   size = "medium",
   iconOnly,
+  id,
 }) => {
+  const renderIcon = !!iconOnly?.src;
   return (
-    <ButtonBase size={size} variant={variant} onClick={onClick}>
-      {!!text ? <div>{text}</div> : <div></div>}
-      {!!iconOnly?.src ? (
-        <Image
-          src={iconOnly?.src}
-          alt={iconOnly?.alt}
-          width={iconOnly?.width}
-          height={iconOnly?.height}
-          layout={iconOnly?.layout}
-        />
-      ) : (
-        <div></div>
-      )}
+    <ButtonBase
+      id={id}
+      data-testid={id}
+      size={size}
+      variant={variant}
+      onClick={onClick}
+    >
+      <>
+        {!!text ? <div data-testid={`${id}-text`}>{text}</div> : null}
+        {!!renderIcon ? (
+          <Image
+            data-testid={`${id}-icon`}
+            src={iconOnly.src}
+            alt={iconOnly.alt}
+          />
+        ) : null}
+      </>
     </ButtonBase>
   );
 };
