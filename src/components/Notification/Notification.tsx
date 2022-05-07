@@ -65,7 +65,11 @@ const Notification: React.FC<NotificationProps> = ({
   if (loaded && !!message) {
     return createPortal(
       <>
-        <ContainerNotification id={id} data-testid={id} type={type}>
+        <ContainerNotification
+          id={`${id}-type-${type}`}
+          data-testid={`${id}-type-${type}`}
+          type={type}
+        >
           <WrapperContent>
             <Wrapmessage>
               <Text

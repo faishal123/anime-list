@@ -35,11 +35,12 @@ import Link from "next/link";
 import placeholderImage from "src/assets/svg/placeholder.svg";
 import CollapsableContent from "./CollapsableContent";
 import { NotificationStateType } from "src/constant/interface";
+import { SingleMedia } from "src/graphql/query/PopularAnimeList/interface";
 
 const AnimeDetail = () => {
   const router = useRouter();
-  const animeId = router?.query?.id as string;
-  const isRouterReady = router?.isReady;
+  const animeId = router.query?.id as string;
+  const isRouterReady = router.isReady;
   const isDesktop = useDesktop();
 
   const [collectionWithCurrentAnime, setCollectionWithCurrentAnime] = useState<
@@ -54,8 +55,14 @@ const AnimeDetail = () => {
   const [description, setDescription] = useState("");
   const { loading, data } = useGetSingleAnime({
     onCompleted: (d) => {
-      const descriptionParsed = parseHTML(d?.Media?.description, document);
-      setDescription(descriptionParsed);
+      const descriptionRaw = d?.Media?.description;
+      if (descriptionRaw) {
+        const descriptionParsed = parseHTML(descriptionRaw, document);
+        setDescription(descriptionParsed);
+      }
+    },
+    onError: (e) => {
+      setRenderNotification({ type: "error", message: JSON.stringify(e) });
     },
   });
 
@@ -66,6 +73,7 @@ const AnimeDetail = () => {
     >((a, c) => {
       return [...a, { name: c, animes: collectionsFromStorage?.[c] }];
     }, []);
+
     const collectionsWithThisAnime = collectionsArrayForm?.reduce<string[]>(
       (a, c) => {
         if (c?.animes?.includes(Number(animeId))) {
@@ -81,10 +89,8 @@ const AnimeDetail = () => {
   useEffect(() => {
     if (isRouterReady) {
       if (!animeId) {
-        console.log("1");
         router.push("/?page=1");
       } else {
-        console.log("sini");
         getCollectionWithCurrentAnime();
       }
     }
@@ -101,32 +107,32 @@ const AnimeDetail = () => {
   const isNotInAnyCollection = collectionWithCurrentAnime?.length <= 0;
 
   const renderTitle = () => {
-    if (!!data && !!animeObject) {
-      return (
-        <div className="margin--large-b">
-          <TitleContainer className="margin--small-b">
-            <Line id={`title-line-${animeId}`} height="34px" />
+    return (
+      <div className="margin--large-b">
+        <TitleContainer className="margin--small-b">
+          <Line id={`title-line-${animeId}`} height="34px" />
+          <Text
+            id={`txt-title-${animeId}`}
+            variant="bold"
+            text={shownAnimeTitle || ""}
+            size="xxlarge"
+          />
+        </TitleContainer>
+        <div className="margin--large-l">
+          <StarRatingContainer>
             <Text
-              id={`txt-title-${animeId}`}
-              variant="bold"
-              text={shownAnimeTitle || ""}
-              size="xxlarge"
+              id={`txt-format-${animeId}`}
+              size="medium"
+              text={showAnimeFormatAndEpisode(animeObject as SingleMedia)}
             />
-          </TitleContainer>
-          <div className="margin--large-l">
-            <StarRatingContainer>
-              <Text
-                id={`txt-format-${animeId}`}
-                size="medium"
-                text={showAnimeFormatAndEpisode(animeObject)}
-              />
-              <StarRating id={`rating-${animeId}`} anime={animeObject} />
-            </StarRatingContainer>
-          </div>
+            <StarRating
+              id={`rating-${animeId}`}
+              anime={animeObject as SingleMedia}
+            />
+          </StarRatingContainer>
         </div>
-      );
-    }
-    return null;
+      </div>
+    );
   };
 
   const renderGenres = () => {
@@ -259,8 +265,8 @@ const AnimeDetail = () => {
           onClose={() => {
             setRenderNotification((prev) => ({ ...prev, message: "" }));
           }}
-          type={renderNotification?.type}
-          message={renderNotification?.message}
+          type={renderNotification.type}
+          message={renderNotification.message}
         />
         <CollectionModal
           getCollectionWithCurrentAnime={getCollectionWithCurrentAnime}

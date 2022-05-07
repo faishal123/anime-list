@@ -18,6 +18,8 @@ const CollapsableContent: React.FC<CollapsableContentProps> = ({
   const [expand, setExpand] = useState<boolean>(defaultState);
   return (
     <Container
+      id={`collapsible-toggle-${title}`}
+      data-testid={`collapsible-toggle-${title}`}
       onClick={() => {
         setExpand((prev) => !prev);
       }}
