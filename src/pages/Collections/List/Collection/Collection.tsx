@@ -95,16 +95,12 @@ const Collection: React.FC<CollectionProps> = ({
           </OverflowContainer>
         )}
       </div>
-      {!loading ? (
-        <div className="margin--medium-t">
-          <ActionButton
-            onDeleteCollection={onDeleteCollection}
-            collectionName={name}
-          />
-        </div>
-      ) : (
-        <div></div>
-      )}
+      <div className="margin--medium-t">
+        <ActionButton
+          onDeleteCollection={onDeleteCollection}
+          collectionName={name}
+        />
+      </div>
     </CollectionContainer>
   );
 };
