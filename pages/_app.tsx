@@ -8,6 +8,7 @@ function MyApp({ Component, pageProps }: AppProps): JSX.Element {
     <>
       <Head>
         <title>Animu</title>
+        <link rel="shortcut icon" href="/favicon.ico" />
       </Head>
       <ApolloProvider client={client}>
         <Component {...pageProps} />
